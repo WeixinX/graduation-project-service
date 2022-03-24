@@ -3,8 +3,7 @@ package api
 import (
 	"net/http"
 
-	"WeixinX/graduation-project/service_demo/media/db"
-
+	"github.com/WeixinX/graduation-project-service/service_demo/media/db"
 	"github.com/gin-gonic/gin"
 )
 

@@ -4,9 +4,9 @@ import (
 	"flag"
 	"fmt"
 
-	"WeixinX/graduation-project/service_demo/media/api"
-	"WeixinX/graduation-project/service_demo/media/config"
-
+	"github.com/WeixinX/graduation-project-service/service_demo/media/api"
+	"github.com/WeixinX/graduation-project-service/service_demo/media/config"
+	"github.com/WeixinX/graduation-project/util/gin_mw"
 	"github.com/gin-gonic/gin"
 )
 
@@ -25,7 +25,7 @@ func main() {
 
 	// 启动服务
 	engine := gin.Default()
-	engine.Use()
+	engine.Use(gin_mw.JaegerTracerInit(config.CONFIG_PARAMS.ServiceName))
 
 	engine.POST("/post_media", api.PostMedia)
 

@@ -1,0 +1,8 @@
+{
+  "service_name": "text",
+  "instance_id": "text_2",
+  "port": "8205",
+  "downstream_call_list": [
+    {"service_name": "compose_post","lb_call_url": "http://text_to_compose_post:8056/lb_api/call"}
+  ]
+}

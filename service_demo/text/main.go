@@ -1,13 +1,16 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"net/http"
+	"strings"
 
-	"WeixinX/graduation-project/service_demo/text/config"
-	"WeixinX/graduation-project/service_demo/text/request"
-
+	"github.com/WeixinX/graduation-project-service/service_demo/text/config"
+	"github.com/WeixinX/graduation-project-service/service_demo/text/request"
+	"github.com/WeixinX/graduation-project/util/gin_mw"
+	"github.com/WeixinX/graduation-project/util/xhttp"
 	"github.com/gin-gonic/gin"
 )
 
@@ -25,11 +28,11 @@ func main() {
 	}
 
 	// 初始化 Http client
-	request.CLIENT = request.HttpClientSetUp()
+	request.XHttp = request.NewXHttpReq()
 
 	// 启动服务
 	engine := gin.Default()
-	engine.Use()
+	engine.Use(gin_mw.JaegerTracerInit(config.CONFIG_PARAMS.ServiceName))
 
 	engine.POST("/post_text", PostText)
 
@@ -51,15 +54,18 @@ func PostText(ctx *gin.Context) {
 	} else {
 		//ctx.JSON(http.StatusOK, gin.H{"status": "test", "message": text})
 
-		req := &request.RequestParams{
-			URLStr: config.CONFIG_PARAMS.DownstreamCallPair["compose_post"],
-			Method: "POST",
-			Headers: map[string][]string{
-				"Content-Type": {"application/json"},
-			},
-			Body: text,
+		bodyBytes, err := json.Marshal(text)
+		if err != nil {
+			ctx.JSON(http.StatusOK, gin.H{"status": "error", "message": err.Error()})
 		}
-		_, err := request.HttpDo(ctx, req)
+		req := &xhttp.ReqParams{
+			UrlStr: config.CONFIG_PARAMS.DownstreamCallPair["compose_post"],
+			Method: http.MethodPost,
+			Header: map[string][]string{"Content-Type": {"application/json"}},
+			Body:   strings.NewReader(string(bodyBytes)),
+		}
+
+		_, err = request.XHttp.Do(ctx, req)
 		if err != nil {
 			ctx.JSON(http.StatusOK, gin.H{"status": "error", "message": err.Error()})
 		} else {

@@ -9,8 +9,8 @@ import (
 	"net/http"
 	"time"
 
-	"WeixinX/graduation-project/service_demo/unique_id/config"
-
+	"github.com/WeixinX/graduation-project-service/service_demo/unique_id/config"
+	"github.com/WeixinX/graduation-project/util/gin_mw"
 	"github.com/gin-gonic/gin"
 )
 
@@ -35,7 +35,7 @@ func main() {
 
 	// 启动服务
 	engine := gin.Default()
-	engine.Use()
+	engine.Use(gin_mw.JaegerTracerInit(config.CONFIG_PARAMS.ServiceName))
 
 	engine.GET("/get_unique_id", func(ctx *gin.Context) {
 		uid := getUniqueID(uniqueIDList)

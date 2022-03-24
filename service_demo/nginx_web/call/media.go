@@ -1,12 +1,15 @@
 package call
 
 import (
+	"encoding/json"
 	"fmt"
+	"net/http"
+	"strings"
 
-	"WeixinX/graduation-project/service_demo/nginx_web/config"
-	"WeixinX/graduation-project/service_demo/nginx_web/model"
-	"WeixinX/graduation-project/service_demo/nginx_web/request"
-
+	"github.com/WeixinX/graduation-project-service/service_demo/nginx_web/config"
+	"github.com/WeixinX/graduation-project-service/service_demo/nginx_web/model"
+	"github.com/WeixinX/graduation-project-service/service_demo/nginx_web/request"
+	"github.com/WeixinX/graduation-project/util/xhttp"
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,20 +21,25 @@ func PostMedia(ctx *gin.Context, postContent *model.PostContent, ch chan model.C
 		}
 	}
 
-	req := &request.RequestParams{
-		URLStr: config.CONFIG_PARAMS.DownstreamCallPair["media"],
-		Method: "POST",
-		Headers: map[string][]string{
-			"Content-Type": {"application/json"},
-		},
-		Body: model.Media{
-			UserID:       postContent.UserID,
-			TimeStamp:    postContent.TimeStamp,
-			MediaContent: postContent.MediaContent,
-		},
+	bodyBytes,err := json.Marshal(model.Media{
+		UserID:       postContent.UserID,
+		TimeStamp:    postContent.TimeStamp,
+		MediaContent: postContent.MediaContent,
+	})
+	if err != nil{
+		ch <- model.ChError{
+			IsError:  true,
+			ErrorMsg: "PostMedia: "+err.Error(),
+		}
+	}
+	req := &xhttp.ReqParams{
+		UrlStr:      config.CONFIG_PARAMS.DownstreamCallPair["media"],
+		Method:      http.MethodPost,
+		Header:      map[string][]string{"Content-Type": {"application/json"}},
+		Body:        strings.NewReader(string(bodyBytes)),
 	}
 
-	resp, err := request.HttpDo(ctx, req)
+	resp, err := request.XHttp.Do(ctx,req)
 	if err != nil {
 		ch <- model.ChError{
 			IsError:  true,

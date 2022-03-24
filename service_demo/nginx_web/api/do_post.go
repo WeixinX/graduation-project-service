@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strings"
 
-	"WeixinX/graduation-project/service_demo/nginx_web/call"
-	"WeixinX/graduation-project/service_demo/nginx_web/model"
+	"github.com/WeixinX/graduation-project-service/service_demo/nginx_web/call"
+	"github.com/WeixinX/graduation-project-service/service_demo/nginx_web/model"
 
 	"github.com/gin-gonic/gin"
 )

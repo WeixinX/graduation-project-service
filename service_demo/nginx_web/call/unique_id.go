@@ -2,11 +2,12 @@ package call
 
 import (
 	"fmt"
+	"net/http"
 
-	"WeixinX/graduation-project/service_demo/nginx_web/config"
-	"WeixinX/graduation-project/service_demo/nginx_web/model"
-	"WeixinX/graduation-project/service_demo/nginx_web/request"
-
+	"github.com/WeixinX/graduation-project-service/service_demo/nginx_web/config"
+	"github.com/WeixinX/graduation-project-service/service_demo/nginx_web/model"
+	"github.com/WeixinX/graduation-project-service/service_demo/nginx_web/request"
+	"github.com/WeixinX/graduation-project/util/xhttp"
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,12 +19,11 @@ func GetUniqueID(ctx *gin.Context, userID string, ch chan model.ChError) {
 		}
 	}
 
-	req := &request.RequestParams{
-		URLStr: config.CONFIG_PARAMS.DownstreamCallPair["unique_id"],
-		Method: "GET",
+	req := &xhttp.ReqParams{
+		UrlStr:      config.CONFIG_PARAMS.DownstreamCallPair["unique_id"],
+		Method:      http.MethodGet,
 	}
-
-	resp, err := request.HttpDo(ctx, req)
+	resp, err := request.XHttp.Do(ctx,req)
 	if err != nil {
 		ch <- model.ChError{
 			IsError:  true,

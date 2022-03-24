@@ -4,10 +4,10 @@ import (
 	"flag"
 	"fmt"
 
-	"WeixinX/graduation-project-service/service_demo/nginx_web/api"
-	"WeixinX/graduation-project-service/service_demo/nginx_web/config"
-	"WeixinX/graduation-project-service/service_demo/nginx_web/request"
-
+	"github.com/WeixinX/graduation-project-service/service_demo/nginx_web/api"
+	"github.com/WeixinX/graduation-project-service/service_demo/nginx_web/config"
+	"github.com/WeixinX/graduation-project-service/service_demo/nginx_web/request"
+	"github.com/WeixinX/graduation-project/util/gin_mw"
 	"github.com/gin-gonic/gin"
 )
 
@@ -25,11 +25,11 @@ func main() {
 	}
 
 	// 初始化 Http client
-	request.CLIENT = request.HttpClientSetUp()
+	request.XHttp = request.NewXHttpReq()
 
 	// 启动服务
 	engine := gin.Default()
-	engine.Use()
+	engine.Use(gin_mw.JaegerTracerInit(config.CONFIG_PARAMS.ServiceName))
 
 	engine.POST("/do_post", api.DoPost)
 

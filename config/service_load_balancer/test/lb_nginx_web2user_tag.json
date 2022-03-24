@@ -1,0 +1,13 @@
+{
+  "load_balancer_name": "nginx_web_to_user_tag",
+  "port": "8013",
+  "upstream_service_name": "nginx_web",
+  "downstream_instance_list": {
+    "service_name": "user_tag",
+    "instances": [
+      {"id": "user_tag_1","call_url": "http://localhost:8103/get_user_tag","current_weight": 0,"effective_weight": 1}
+    ],
+    "replica_num": 1,
+    "total": 0
+  }
+}

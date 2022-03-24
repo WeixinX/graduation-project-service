@@ -1,12 +1,15 @@
 package call
 
 import (
+	"encoding/json"
 	"fmt"
+	"net/http"
+	"strings"
 
-	"WeixinX/graduation-project/service_demo/nginx_web/config"
-	"WeixinX/graduation-project/service_demo/nginx_web/model"
-	"WeixinX/graduation-project/service_demo/nginx_web/request"
-
+	"github.com/WeixinX/graduation-project-service/service_demo/nginx_web/config"
+	"github.com/WeixinX/graduation-project-service/service_demo/nginx_web/model"
+	"github.com/WeixinX/graduation-project-service/service_demo/nginx_web/request"
+	"github.com/WeixinX/graduation-project/util/xhttp"
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,20 +21,24 @@ func PostText(ctx *gin.Context, postContent *model.PostContent, ch chan model.Ch
 		}
 	}
 
-	req := &request.RequestParams{
-		URLStr: config.CONFIG_PARAMS.DownstreamCallPair["text"],
-		Method: "POST",
-		Headers: map[string][]string{
-			"Content-Type": {"application/json"},
-		},
-		Body: model.Text{
-			UserID:      postContent.UserID,
-			TimeStamp:   postContent.TimeStamp,
-			TextContent: postContent.MediaContent,
-		},
+	bodyBytes,err := json.Marshal(model.Text{
+		UserID:      postContent.UserID,
+		TimeStamp:   postContent.TimeStamp,
+		TextContent: postContent.MediaContent,
+	})
+	if err != nil{
+		ch <- model.ChError{
+			IsError:  true,
+			ErrorMsg: "PostText: "+err.Error(),
+		}
 	}
-
-	resp, err := request.HttpDo(ctx, req)
+	req := &xhttp.ReqParams{
+		UrlStr:      config.CONFIG_PARAMS.DownstreamCallPair["text"],
+		Method:      http.MethodPost,
+		Header:      map[string][]string{"Content-Type": {"application/json"}},
+		Body:        strings.NewReader(string(bodyBytes)),
+	}
+	resp, err := request.XHttp.Do(ctx,req)
 	if err != nil {
 		ch <- model.ChError{
 			IsError:  true,

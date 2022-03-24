@@ -1,0 +1,15 @@
+{
+  "load_balancer_name": "nginx_web_to_media",
+  "port": "8014",
+  "upstream_service_name": "nginx_web",
+  "downstream_instance_list": {
+    "service_name": "media",
+    "instances": [
+      {"id": "media_1","call_url": "http://media_1:8104/post_media","current_weight": 0,"effective_weight": 1},
+      {"id": "media_2","call_url": "http://media_2:8204/post_media","current_weight": 0,"effective_weight": 1},
+      {"id": "media_3","call_url": "http://media_3:8304/post_media","current_weight": 0,"effective_weight": 1}
+    ],
+    "replica_num": 1,
+    "total": 0
+  }
+}

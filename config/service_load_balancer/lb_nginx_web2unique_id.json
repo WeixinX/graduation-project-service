@@ -1,0 +1,15 @@
+{
+  "load_balancer_name": "nginx_web_to_unique_id",
+  "port": "8012",
+  "upstream_service_name": "nginx_web",
+  "downstream_instance_list": {
+    "service_name": "unique_id",
+    "instances": [
+      {"id": "unique_id_1","call_url": "http://unique_id_1:8102/get_unique_id","current_weight": 0,"effective_weight": 1},
+      {"id": "unique_id_2","call_url": "http://unique_id_2:8202/get_unique_id","current_weight": 0,"effective_weight": 1},
+      {"id": "unique_id_3","call_url": "http://unique_id_3:8302/get_unique_id","current_weight": 0,"effective_weight": 1}
+    ],
+    "replica_num": 1,
+    "total": 0
+  }
+}

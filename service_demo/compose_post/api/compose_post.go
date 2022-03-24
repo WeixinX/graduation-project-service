@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"time"
 
-	"WeixinX/graduation-project/service_demo/compose_post/call"
-
+	"github.com/WeixinX/graduation-project-service/service_demo/compose_post/call"
+	"github.com/WeixinX/graduation-project-service/service_demo/compose_post/model"
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,14 +19,8 @@ const (
 	CPMinSleepMs = 20
 )
 
-type Text struct {
-	UserID      string `json:"user_id"`
-	TimeStamp   string `json:"time_stamp"`
-	TextContent string `json:"text_content"`
-}
-
 func ComposePost(ctx *gin.Context) {
-	text := Text{}
+	text := model.Text{}
 	if err := ctx.ShouldBindJSON(&text); err != nil {
 		ctx.JSON(http.StatusOK, gin.H{"status": "error", "message": err.Error()})
 	} else {

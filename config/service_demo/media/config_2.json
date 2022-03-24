@@ -1,0 +1,6 @@
+{
+  "service_name": "media",
+  "instance_id": "media_2",
+  "port": "8204",
+  "downstream_call_list": []
+}

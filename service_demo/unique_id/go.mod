@@ -1,8 +1,11 @@
-module WeixinX/graduation-project/service_demo/unique_id
+module github.com/WeixinX/graduation-project-service/service_demo/unique_id
 
 go 1.17
 
-require github.com/gin-gonic/gin v1.7.7
+require (
+	github.com/gin-gonic/gin v1.7.7
+	github.com/WeixinX/graduation-project v0.1.1-0.20220324105604-b77309e7d96c
+)
 
 require (
 	github.com/gin-contrib/sse v0.1.0 // indirect
