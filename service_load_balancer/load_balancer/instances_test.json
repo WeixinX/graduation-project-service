@@ -1,0 +1,9 @@
+{
+  "instances": [
+    {"id": "service_a_1","call_url": "http://ServiceA1:8888/action","current_weight": 0,"effective_weight": 1},
+    {"id": "service_a_2","call_url": "http://ServiceA2:8888/action","current_weight": 0,"effective_weight": 1},
+    {"id": "service_a_3","call_url": "http://ServiceA3:8888/action","current_weight": 0,"effective_weight": 1}
+  ],
+  "replica_num": 3,
+  "total": 0
+}

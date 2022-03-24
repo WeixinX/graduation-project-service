@@ -1,0 +1,11 @@
+{
+  "service_name": "nginx_web",
+  "instance_id": "nginx_web_1",
+  "port": "8101",
+  "downstream_call_list": [
+    {"service_name": "unique_id","lb_call_url": "http://localhost:8012/lb_api/call"},
+    {"service_name": "user_tag","lb_call_url": "http://localhost:8013/lb_api/call"},
+    {"service_name": "media","lb_call_url": "http://localhost:8014/lb_api/call"},
+    {"service_name": "text","lb_call_url": "http://localhost:8015/lb_api/call"}
+  ]
+}

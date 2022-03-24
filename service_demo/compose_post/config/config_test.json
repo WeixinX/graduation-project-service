@@ -1,0 +1,8 @@
+{
+  "service_name": "compose_post",
+  "instance_id": "compose_post_1",
+  "port": "8106",
+  "downstream_call_list": [
+    {"service_name": "write_timeline","lb_call_url": "http://localhost:8067/lb_api/call"}
+  ]
+}
