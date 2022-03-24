@@ -4,10 +4,10 @@ import (
 	"flag"
 	"fmt"
 
-	"WeixinX/graduation-project/service_load_balancer/config"
-	"WeixinX/graduation-project/service_load_balancer/load_balancer"
-	"WeixinX/graduation-project/service_load_balancer/request"
-	"WeixinX/graduation-project/service_load_balancer/router"
+	"github.com/WeixinX/graduation-project-service/service_load_balancer/config"
+	"github.com/WeixinX/graduation-project-service/service_load_balancer/load_balancer"
+	"github.com/WeixinX/graduation-project-service/service_load_balancer/request"
+	"github.com/WeixinX/graduation-project-service/service_load_balancer/router"
 
 	"github.com/gin-gonic/gin"
 )

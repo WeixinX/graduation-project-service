@@ -10,12 +10,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type RequestParams struct {
-	URLStr  string
-	Method  string
-	Headers map[string][]string
-	Params  map[string]string
-	Body    io.ReadCloser
+type ReqParams struct {
+	UrlStr      string
+	Method      string
+	Header      map[string][]string
+	QueryParams map[string]string
+	Body        io.Reader
 }
 
 var CLIENT *http.Client
@@ -24,37 +24,28 @@ func HttpClientSetUp() *http.Client {
 	// 初始化 client
 	return &http.Client{
 		Transport: http.DefaultTransport,
-		Timeout:   time.Second * 5,
+		Timeout:   time.Second * 2,
 	}
 }
 
 // HttpDo LB 的请求多半是透传，所以可能和其他服务的请求不太一样，需要注意
-func HttpDo(ctx *gin.Context, requestParams *RequestParams) (string, error) {
-	// 初始化 client
-	//tr := &http.Transport{
-	//	TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-	//}
-	//client := &http.Client{
-	//	Timeout:   time.Second * 5, //默认5秒超时时间
-	//	Transport: tr,
-	//}
-
+func HttpDo(ctx *gin.Context, params *ReqParams) (string, error) {
 	// 构造 url, 设置查询参数
 	// FIXME:没有服务涉及查询参数，故先不考虑
-	Url, _ := url.Parse(requestParams.URLStr)
+	Url, _ := url.Parse(params.UrlStr)
 	p := url.Values{}
-	for k, v := range requestParams.Params {
+	for k, v := range params.QueryParams {
 		p.Set(k, v)
 	}
 	Url.RawQuery = p.Encode()
 	urlPath := Url.String()
 
 	// 构造请求, 设置请求头
-	req, err := http.NewRequest(requestParams.Method, urlPath, requestParams.Body)
+	req, err := http.NewRequest(params.Method, urlPath, params.Body)
 	if err != nil {
 		return "", err
 	}
-	req.Header = requestParams.Headers
+	req.Header = params.Header
 
 	// 发起请求
 	resp, err := CLIENT.Do(req)

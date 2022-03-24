@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 
-	"WeixinX/graduation-project/service_load_balancer/load_balancer"
+	"github.com/WeixinX/graduation-project-service/service_load_balancer/load_balancer"
 )
 
 type ConfigParams struct {

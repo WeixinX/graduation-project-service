@@ -4,8 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"WeixinX/graduation-project/service_load_balancer/request"
-
+	"github.com/WeixinX/graduation-project-service/service_load_balancer/request"
 	"github.com/gin-gonic/gin"
 )
 
@@ -33,11 +32,11 @@ func CallDown(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{"status": "error", "message": "The load balancing algorithm failed to select an instance!"})
 
 	} else {
-		requestParams := request.RequestParams{
-			URLStr:  willCallInstance.CallURL,
-			Method:  ctx.Request.Method,
-			Headers: ctx.Request.Header,
-			Body:    ctx.Request.Body,
+		requestParams := request.ReqParams{
+			UrlStr: willCallInstance.CallURL,
+			Method: ctx.Request.Method,
+			Header: ctx.Request.Header,
+			Body:   ctx.Request.Body,
 		}
 
 		fmt.Printf("LB selected %s\n", willCallInstance.InstanceID)
