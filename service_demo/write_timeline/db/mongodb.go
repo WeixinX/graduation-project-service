@@ -1,9 +1,15 @@
 package db
 
 import (
+	"context"
 	"fmt"
 	"math/rand"
+	"net/http"
 	"time"
+
+	"github.com/gin-gonic/gin"
+	"github.com/opentracing/opentracing-go"
+	"github.com/opentracing/opentracing-go/ext"
 )
 
 const (
@@ -14,7 +20,22 @@ const (
 	MongoMinSleepMs = 30
 )
 
-func MongoDBPost(text Text) {
+func MongoDBPost(ctx *gin.Context, text Text) {
+	// 提取 parent span context, 并创建子client span
+	ctxWithSpan, ok := ctx.Get("ctxWithSpan")
+	if !ok {
+		return
+	}
+	span, _ := opentracing.StartSpanFromContext(ctxWithSpan.(context.Context), "/mongo/post_text")
+	defer span.Finish()
+
+	// 该 span 异步(并行)
+	span.SetTag("isAsync", "true")
+
+	ext.HTTPUrl.Set(span, "/mongo/post_text")
+	ext.HTTPMethod.Set(span, http.MethodPost)
+
+	// 模拟实际时延
 	seed := rand.NewSource(time.Now().Unix())
 	random := rand.New(seed)
 	sleepTime := random.Intn(MongoMaxSleepMs-MongoMinSleepMs) + MongoMinSleepMs

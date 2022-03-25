@@ -30,6 +30,10 @@ func main() {
 	// 初始化 Http client
 	request.XHttp = request.NewXHttpReq()
 
+	// 初始化全局 Tracer
+	_, closer := gin_mw.NewGlobalJaegerTracer(config.CONFIG_PARAMS.ServiceName)
+	defer closer.Close()
+
 	// 启动服务
 	engine := gin.Default()
 	engine.Use(gin_mw.JaegerTracerInit(config.CONFIG_PARAMS.ServiceName))
@@ -61,7 +65,8 @@ func PostText(ctx *gin.Context) {
 		req := &xhttp.ReqParams{
 			UrlStr: config.CONFIG_PARAMS.DownstreamCallPair["compose_post"],
 			Method: http.MethodPost,
-			Header: map[string][]string{"Content-Type": {"application/json"}},
+			// map[string][]string{"Content-Type": {"application/json"}}
+			Header: ctx.Request.Header,
 			Body:   strings.NewReader(string(bodyBytes)),
 		}
 

@@ -21,24 +21,25 @@ func PostText(ctx *gin.Context, postContent *model.PostContent, ch chan model.Ch
 		}
 	}
 
-	bodyBytes,err := json.Marshal(model.Text{
+	bodyBytes, err := json.Marshal(model.Text{
 		UserID:      postContent.UserID,
 		TimeStamp:   postContent.TimeStamp,
 		TextContent: postContent.MediaContent,
 	})
-	if err != nil{
+	if err != nil {
 		ch <- model.ChError{
 			IsError:  true,
-			ErrorMsg: "PostText: "+err.Error(),
+			ErrorMsg: "PostText: " + err.Error(),
 		}
 	}
 	req := &xhttp.ReqParams{
-		UrlStr:      config.CONFIG_PARAMS.DownstreamCallPair["text"],
-		Method:      http.MethodPost,
-		Header:      map[string][]string{"Content-Type": {"application/json"}},
-		Body:        strings.NewReader(string(bodyBytes)),
+		UrlStr: config.CONFIG_PARAMS.DownstreamCallPair["text"],
+		Method: http.MethodPost,
+		// map[string][]string{"Content-Type": {"application/json"}}
+		Header: ctx.Request.Header,
+		Body:   strings.NewReader(string(bodyBytes)),
 	}
-	resp, err := request.XHttp.Do(ctx,req)
+	resp, err := request.XHttp.Do(ctx, req)
 	if err != nil {
 		ch <- model.ChError{
 			IsError:  true,

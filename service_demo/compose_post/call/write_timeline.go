@@ -21,8 +21,10 @@ func WriteTimeline(ctx *gin.Context, text model.Text) {
 	req := &xhttp.ReqParams{
 		UrlStr: config.CONFIG_PARAMS.DownstreamCallPair["write_timeline"],
 		Method: http.MethodPost,
-		Header: map[string][]string{"Content-Type": {"application/json"}},
+		// map[string][]string{"Content-Type": {"application/json"}}
+		Header: ctx.Request.Header,
 		Body:   strings.NewReader(string(bodyBytes)),
+		Async:  true,
 	}
 	_, err = request.XHttp.Do(ctx, req)
 	if err != nil {

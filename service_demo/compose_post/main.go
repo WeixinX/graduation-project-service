@@ -27,6 +27,10 @@ func main() {
 	// 初始化 Http client
 	request.XHttp = request.NewXHttpReq()
 
+	// 初始化全局 Tracer
+	_, closer := gin_mw.NewGlobalJaegerTracer(config.CONFIG_PARAMS.ServiceName)
+	defer closer.Close()
+
 	// 启动服务
 	engine := gin.Default()
 	engine.Use(gin_mw.JaegerTracerInit(config.CONFIG_PARAMS.ServiceName))

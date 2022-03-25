@@ -24,7 +24,7 @@ func HttpClientSetUp() *http.Client {
 	// 初始化 client
 	return &http.Client{
 		Transport: http.DefaultTransport,
-		Timeout:   time.Second * 2,
+		Timeout:   time.Second * 3,
 	}
 }
 

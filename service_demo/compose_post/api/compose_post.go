@@ -2,11 +2,11 @@ package api
 
 import (
 	"fmt"
+	"github.com/WeixinX/graduation-project-service/service_demo/compose_post/call"
 	"math/rand"
 	"net/http"
 	"time"
 
-	"github.com/WeixinX/graduation-project-service/service_demo/compose_post/call"
 	"github.com/WeixinX/graduation-project-service/service_demo/compose_post/model"
 	"github.com/gin-gonic/gin"
 )
@@ -26,6 +26,8 @@ func ComposePost(ctx *gin.Context) {
 	} else {
 		//fmt.Printf("text info: %+v\n",text)
 
+		go call.WriteTimeline(ctx, text)
+
 		// 模拟 ComposePost 处理过程
 		seed := rand.NewSource(time.Now().Unix())
 		random := rand.New(seed)
@@ -34,8 +36,5 @@ func ComposePost(ctx *gin.Context) {
 		fmt.Printf("compose post exec time: %v\n", time.Millisecond*time.Duration(sleepTime))
 
 		ctx.JSON(http.StatusOK, gin.H{"status": "success"})
-
-		go call.WriteTimeline(ctx, text)
-
 	}
 }

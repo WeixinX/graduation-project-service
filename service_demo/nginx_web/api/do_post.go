@@ -17,20 +17,17 @@ func DoPost(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{"status": "error", "message": err.Error()})
 	} else {
 		// 使用 ch 收集 goroutine 中的错误
-		chs := make([]chan model.ChError, 4)
-		for i := 0; i < 4; i++ {
+		chs := make([]chan model.ChError, 3)
+		for i := 0; i < 3; i++ {
 			chs[i] = make(chan model.ChError)
 		}
 
 		// GetUserTag 与 GetUniqueID 串行, 其余并行
-		go func() {
-			call.GetUserTag(ctx, postContent.UserID, chs[0])
-			call.GetUniqueID(ctx, postContent.UserID, chs[1])
-		}()
-		go call.PostMedia(ctx, &postContent, chs[2])
-		go call.PostText(ctx, &postContent, chs[3])
+		go call.GetUserTagAndUniqueID(ctx, postContent.UserID, chs[0])
+		go call.PostMedia(ctx, &postContent, chs[1])
+		go call.PostText(ctx, &postContent, chs[2])
 
-		errorMsgList := make([]string, 0, 4)
+		errorMsgList := make([]string, 0, 3)
 		for _, ch := range chs {
 			v := <-ch
 			if v.IsError {

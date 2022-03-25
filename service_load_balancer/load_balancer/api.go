@@ -42,7 +42,7 @@ func CallDown(ctx *gin.Context) {
 		fmt.Printf("LB selected %s\n", willCallInstance.InstanceID)
 		resp, err := request.HttpDo(ctx, &requestParams)
 		if err != nil {
-			ctx.JSON(http.StatusOK, gin.H{"status": "error", "message": "The load balancer request failed!"})
+			ctx.JSON(http.StatusOK, gin.H{"status": "error", "message": "The load balancer request failed: " + err.Error()})
 		}
 		// 把相应信息透传回上游
 		ctx.JSON(http.StatusOK, resp)

@@ -21,25 +21,26 @@ func PostMedia(ctx *gin.Context, postContent *model.PostContent, ch chan model.C
 		}
 	}
 
-	bodyBytes,err := json.Marshal(model.Media{
+	bodyBytes, err := json.Marshal(model.Media{
 		UserID:       postContent.UserID,
 		TimeStamp:    postContent.TimeStamp,
 		MediaContent: postContent.MediaContent,
 	})
-	if err != nil{
+	if err != nil {
 		ch <- model.ChError{
 			IsError:  true,
-			ErrorMsg: "PostMedia: "+err.Error(),
+			ErrorMsg: "PostMedia: " + err.Error(),
 		}
 	}
 	req := &xhttp.ReqParams{
-		UrlStr:      config.CONFIG_PARAMS.DownstreamCallPair["media"],
-		Method:      http.MethodPost,
-		Header:      map[string][]string{"Content-Type": {"application/json"}},
-		Body:        strings.NewReader(string(bodyBytes)),
+		UrlStr: config.CONFIG_PARAMS.DownstreamCallPair["media"],
+		Method: http.MethodPost,
+		// map[string][]string{"Content-Type": {"application/json"}}
+		Header: ctx.Request.Header,
+		Body:   strings.NewReader(string(bodyBytes)),
 	}
 
-	resp, err := request.XHttp.Do(ctx,req)
+	resp, err := request.XHttp.Do(ctx, req)
 	if err != nil {
 		ch <- model.ChError{
 			IsError:  true,

@@ -15,7 +15,7 @@ func WriteTimeline(ctx *gin.Context) {
 	} else {
 		ctx.JSON(http.StatusOK, gin.H{"status": "success"})
 
-		go db.MongoDBPost(text)
-		go db.RedisPost(text)
+		go db.MongoDBPost(ctx, text)
+		go db.RedisPost(ctx, text)
 	}
 }
