@@ -2,8 +2,8 @@ dmitri.shuralyov.com/gpu/mtl v0.0.0-20190408044501-666a987793e9/go.mod h1:H6x//7
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/HdrHistogram/hdrhistogram-go v1.1.2 h1:5IcZpTvzydCQeHzK4Ef/D5rrSqwxob0t8PQPMybUNFM=
 github.com/HdrHistogram/hdrhistogram-go v1.1.2/go.mod h1:yDgFjdqOqDEKOvasDdhWNXYg9BVp4O+o5f6V/ehm6Oo=
-github.com/WeixinX/graduation-project v0.1.1-0.20220325111116-7c8bbd13b346 h1:yNxhU48hXzTJu648RIT4IWHnhN6sjEmKk1Xvi1XCC4M=
-github.com/WeixinX/graduation-project v0.1.1-0.20220325111116-7c8bbd13b346/go.mod h1:fZ7hZYXxqInmFPHyAL3qZ9kkueYK5QnT6NZ6tgJ1yFg=
+github.com/WeixinX/graduation-project v0.1.1-0.20220327153553-fe4063e25a93 h1:J0kAvL/FjUXtHWvlfT09HucJvVr9QfXHfi4HoCXkR1A=
+github.com/WeixinX/graduation-project v0.1.1-0.20220327153553-fe4063e25a93/go.mod h1:fZ7hZYXxqInmFPHyAL3qZ9kkueYK5QnT6NZ6tgJ1yFg=
 github.com/ajstarks/svgo v0.0.0-20180226025133-644b8db467af/go.mod h1:K08gAheRH3/J6wwsYMMT4xOr94bZjxIelGM0+d/wbFw=
 github.com/creack/pty v1.1.9/go.mod h1:oKZEueFk5CKHvIhNR5MUki03XCEU+Q6VDXinZuGJ33E=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

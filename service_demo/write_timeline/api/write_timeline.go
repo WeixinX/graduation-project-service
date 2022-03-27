@@ -2,6 +2,7 @@ package api
 
 import (
 	"net/http"
+	"sync"
 
 	"github.com/WeixinX/graduation-project-service/service_demo/write_timeline/db"
 
@@ -13,9 +14,20 @@ func WriteTimeline(ctx *gin.Context) {
 	if err := ctx.ShouldBindJSON(&text); err != nil {
 		ctx.JSON(http.StatusOK, gin.H{"status": "error", "message": err.Error()})
 	} else {
-		ctx.JSON(http.StatusOK, gin.H{"status": "success"})
+		var wg sync.WaitGroup
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			db.MongoDBPost(ctx, text)
+		}()
 
-		go db.MongoDBPost(ctx, text)
-		go db.RedisPost(ctx, text)
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			db.RedisPost(ctx, text)
+		}()
+
+		wg.Wait()
+		ctx.JSON(http.StatusOK, gin.H{"status": "success"})
 	}
 }

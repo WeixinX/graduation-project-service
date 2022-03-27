@@ -30,7 +30,7 @@ func RedisPost(ctx *gin.Context, media Media) {
 	defer span.Finish()
 
 	// 该 span 异步(并行)
-	span.SetTag("isAsync", "true")
+	span.SetTag("is-async", "true")
 
 	ext.HTTPUrl.Set(span, "/redis/post_media")
 	ext.HTTPMethod.Set(span, http.MethodPost)

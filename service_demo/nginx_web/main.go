@@ -33,7 +33,7 @@ func main() {
 
 	// 启动服务
 	engine := gin.Default()
-	engine.Use(gin_mw.JaegerTracerInit(config.CONFIG_PARAMS.ServiceName))
+	engine.Use(gin_mw.JaegerTracerMiddleWare(config.CONFIG_PARAMS.ServiceName))
 
 	engine.POST("/do_post", api.DoPost)
 
