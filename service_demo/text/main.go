@@ -12,6 +12,7 @@ import (
 	"github.com/WeixinX/graduation-project/util/gin_mw"
 	"github.com/WeixinX/graduation-project/util/xhttp"
 	"github.com/gin-gonic/gin"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 func main() {
@@ -34,11 +35,20 @@ func main() {
 	_, closer := gin_mw.NewGlobalJaegerTracer(config.CONFIG_PARAMS.ServiceName)
 	defer closer.Close()
 
+	// 初始化指标采集
+	metrics := gin_mw.NewPromMetrics()
+
 	// 启动服务
 	engine := gin.Default()
-	engine.Use(gin_mw.JaegerTracerMiddleWare(config.CONFIG_PARAMS.ServiceName))
 
-	engine.POST("/post_text", PostText)
+	engine.POST("/post_text",
+		// TODO: 修改 IP
+		gin_mw.PromMiddleWare(metrics, config.CONFIG_PARAMS.ServiceName, "127.0.0.1", config.CONFIG_PARAMS.InstanceID),
+		gin_mw.JaegerTracerMiddleWare(config.CONFIG_PARAMS.ServiceName),
+
+		PostText,
+	)
+	engine.GET("/metrics", gin.WrapH(promhttp.Handler()))
 
 	if err := engine.Run(":" + config.CONFIG_PARAMS.Port); err != nil {
 		fmt.Println("Text service failed to start! err: ", err)

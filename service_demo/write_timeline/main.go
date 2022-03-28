@@ -8,6 +8,7 @@ import (
 	"github.com/WeixinX/graduation-project-service/service_demo/write_timeline/config"
 	"github.com/WeixinX/graduation-project/util/gin_mw"
 	"github.com/gin-gonic/gin"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 func main() {
@@ -27,11 +28,20 @@ func main() {
 	_, closer := gin_mw.NewGlobalJaegerTracer(config.CONFIG_PARAMS.ServiceName)
 	defer closer.Close()
 
+	// 初始化指标采集
+	metrics := gin_mw.NewPromMetrics()
+
 	// 启动服务
 	engine := gin.Default()
-	engine.Use(gin_mw.JaegerTracerMiddleWare(config.CONFIG_PARAMS.ServiceName))
 
-	engine.POST("/write_timeline", api.WriteTimeline)
+	engine.POST("/write_timeline",
+		// TODO: 修改 IP
+		gin_mw.PromMiddleWare(metrics, config.CONFIG_PARAMS.ServiceName, "127.0.0.1", config.CONFIG_PARAMS.InstanceID),
+		gin_mw.JaegerTracerMiddleWare(config.CONFIG_PARAMS.ServiceName),
+
+		api.WriteTimeline,
+	)
+	engine.GET("/metrics", gin.WrapH(promhttp.Handler()))
 
 	if err := engine.Run(":" + config.CONFIG_PARAMS.Port); err != nil {
 		fmt.Println("write timeline service failed to start! err: ", err)

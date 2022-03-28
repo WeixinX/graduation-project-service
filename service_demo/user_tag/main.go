@@ -12,6 +12,7 @@ import (
 	"github.com/WeixinX/graduation-project-service/service_demo/user_tag/config"
 	"github.com/WeixinX/graduation-project/util/gin_mw"
 	"github.com/gin-gonic/gin"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 type UserTagConfig struct {
@@ -37,18 +38,27 @@ func main() {
 	_, closer := gin_mw.NewGlobalJaegerTracer(config.CONFIG_PARAMS.ServiceName)
 	defer closer.Close()
 
+	// 初始化指标采集
+	metrics := gin_mw.NewPromMetrics()
+
 	// 启动服务
 	engine := gin.Default()
-	engine.Use(gin_mw.JaegerTracerMiddleWare(config.CONFIG_PARAMS.ServiceName))
 
-	engine.GET("/get_user_tag", func(ctx *gin.Context) {
-		userTag := getUniqueID(userTagList)
-		fmt.Println("user tag: ", userTag)
-		ctx.JSON(http.StatusOK, gin.H{
-			"status": "success",
-			"data":   map[string]interface{}{"user_tag": userTag},
+	engine.GET("/get_user_tag",
+		// TODO: 修改 IP
+		gin_mw.PromMiddleWare(metrics, config.CONFIG_PARAMS.ServiceName, "127.0.0.1", config.CONFIG_PARAMS.InstanceID),
+		gin_mw.JaegerTracerMiddleWare(config.CONFIG_PARAMS.ServiceName),
+
+		func(ctx *gin.Context) {
+			userTag := getUniqueID(userTagList)
+			fmt.Println("user tag: ", userTag)
+			ctx.JSON(http.StatusOK, gin.H{
+				"status": "success",
+				"data":   map[string]interface{}{"user_tag": userTag},
+			})
 		})
-	})
+
+	engine.GET("/metrics", gin.WrapH(promhttp.Handler()))
 
 	if err := engine.Run(":" + config.CONFIG_PARAMS.Port); err != nil {
 		fmt.Println("User Tag service failed to start! err: ", err)
