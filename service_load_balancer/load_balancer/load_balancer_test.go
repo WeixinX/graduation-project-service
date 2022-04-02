@@ -14,6 +14,7 @@ func TestNewInstanceList(t *testing.T) {
 		}
 		fmt.Println("Replica Num: ", list.ReplicaNum)
 		fmt.Println("Total: ", list.Total)
+		fmt.Println("Instance Map: ", list.InstanceMap)
 	} else {
 		t.Error("NewInstanceList error!")
 	}

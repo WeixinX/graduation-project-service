@@ -31,5 +31,16 @@ func ConfigSetUp(configFile string) *ConfigParams {
 		return nil
 	}
 
+	if len(configParams.InstanceList.Instances) > configParams.InstanceList.Total {
+		configParams.InstanceList.Total = len(configParams.InstanceList.Instances)
+	}
+
+	// 建立 InstanceID 与 InstanceList 下标的映射
+	instanceMap := make(map[string]int, configParams.InstanceList.Total)
+	for idx, instance := range configParams.InstanceList.Instances {
+		instanceMap[instance.InstanceID] = idx
+	}
+	configParams.InstanceList.InstanceMap = instanceMap
+
 	return configParams
 }

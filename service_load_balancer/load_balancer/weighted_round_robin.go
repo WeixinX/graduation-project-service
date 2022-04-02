@@ -5,9 +5,6 @@ import (
 	"time"
 )
 
-const INT_MAX = int(^uint(0) >> 1)
-const INT_MIN = ^INT_MAX
-
 /*
 	加权轮询算法 Weighted Round Robin, WRR
 	过程:
@@ -15,6 +12,11 @@ const INT_MIN = ^INT_MAX
 		2. 选出实例中 CurrentWeight 最大的作为此次负载实例，如果一样大则随机选择
 		3. 对于选处的实例，执行 instance.CurrentWeight -= Total
 */
+
+const (
+	INT_MAX = int(^uint(0) >> 1)
+	INT_MIN = ^INT_MAX
+)
 
 func WRR(list *InstanceList) (retInstance *Instance) {
 	if list == nil || list.Instances == nil || len(list.Instances) == 0 {

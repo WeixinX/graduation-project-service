@@ -15,10 +15,10 @@ func RouterSetUp(engine *gin.Engine) {
 		apiGroup.POST("/call", load_balancer.CallDown)
 
 		// 扩容
-		apiGroup.POST("/scale", load_balancer.Scale)
+		apiGroup.POST("/scaling", load_balancer.Scaling)
 
 		// 转移/均衡
-		apiGroup.POST("/transfer", load_balancer.Transfer)
+		apiGroup.POST("/balancing", load_balancer.Balancing)
 
 		// 重调度
 		apiGroup.POST("/reschedule", load_balancer.Reschedule)

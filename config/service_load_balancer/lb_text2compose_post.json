@@ -10,6 +10,6 @@
       {"id": "compose_post_3","call_url": "http://compose_post_3:8306/compose_post","current_weight": 0,"effective_weight": 1}
     ],
     "replica_num": 1,
-    "total": 0
+    "total": 3
   }
 }

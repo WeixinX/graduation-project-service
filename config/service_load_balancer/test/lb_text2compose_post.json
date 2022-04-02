@@ -8,6 +8,6 @@
       {"id": "compose_post_1","call_url": "http://localhost:8106/compose_post","current_weight": 0,"effective_weight": 1}
     ],
     "replica_num": 1,
-    "total": 0
+    "total": 1
   }
 }

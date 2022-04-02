@@ -10,6 +10,6 @@
       {"id": "nginx_web_3","call_url": "http://nginx_web_3:8301/do_post","current_weight": 0,"effective_weight": 1}
     ],
     "replica_num": 1,
-    "total": 0
+    "total": 3
   }
 }
