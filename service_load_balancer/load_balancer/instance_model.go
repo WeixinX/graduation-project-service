@@ -4,21 +4,25 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"sync"
 )
 
 type Instance struct {
-	InstanceID      string `json:"id"`
-	CallURL         string `json:"call_url"`
-	CurrentWeight   int    `json:"current_weight"`
-	EffectiveWeight int    `json:"effective_weight"`
+	InstanceID      string `json:"id"`               // 实例标识符
+	CallURL         string `json:"call_url"`         // 实例的调用 URL
+	CurrentWeight   int    `json:"current_weight"`   // 当前权重
+	EffectiveWeight int    `json:"effective_weight"` // 有效权重
 }
 
 type InstanceList struct {
-	ServiceName string         `json:"service_name"` // 服务名
-	Instances   []Instance     `json:"instances"`    // 实例信息列表
-	ReplicaNum  int            `json:"replica_num"`  // 当前副本数
-	Total       int            `json:"total"`        // 总副本数
-	InstanceMap map[string]int `json:"instance_map"` // InstanceID 到实例信息的映射
+	ServiceName    string         `json:"service_name"` // 服务名
+	Instances      []Instance     `json:"instances"`    // 实例信息列表
+	ReplicaNum     int            `json:"replica_num"`  // 当前副本数
+	Total          int            `json:"total"`        // 总副本数
+	InstanceMap    map[string]int `json:"instance_map"` // InstanceID 到实例信息的映射
+	TotalMutex     sync.Mutex     // 总副本数互斥锁
+	InstancesMutex sync.Mutex     // 实例数组互斥锁
+	WightMutex     sync.Mutex     // 权重互斥锁
 }
 
 var INSTANCE_LIST *InstanceList
@@ -53,18 +57,24 @@ func NewInstanceList(configFile string) *InstanceList {
 }
 
 func (i *InstanceList) AddReplica(addNum int) {
+	i.TotalMutex.Lock()
+
 	if i.ReplicaNum+addNum > i.Total {
 		i.ReplicaNum = i.Total
 	} else {
 		i.ReplicaNum += addNum
 	}
+
+	i.TotalMutex.Unlock()
 }
 
 func (i *InstanceList) AddEffectiveWeight(idx, weight int) {
 	if idx > len(i.Instances) {
 		return
 	} else {
+		i.WightMutex.Lock()
 		i.Instances[idx].EffectiveWeight += weight
+		i.WightMutex.Unlock()
 	}
 }
 
@@ -79,7 +89,12 @@ func (i *InstanceList) RemoveInstance(instanceID string) {
 		}
 	}
 
+	i.TotalMutex.Lock()
 	INSTANCE_LIST.Total = len(instances)
+	i.TotalMutex.Unlock()
+
+	i.InstancesMutex.Lock()
 	INSTANCE_LIST.Instances = instances
 	INSTANCE_LIST.InstanceMap = instanceMap
+	i.InstancesMutex.Unlock()
 }
