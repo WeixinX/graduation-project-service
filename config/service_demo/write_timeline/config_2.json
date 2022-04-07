@@ -1,6 +1,6 @@
 {
-  "service_name": "write_timeline",
-  "instance_id": "write_timeline_2",
+  "service_name": "write-timeline",
+  "instance_id": "write-timeline-2",
   "port": "8207",
   "downstream_call_list": []
 }

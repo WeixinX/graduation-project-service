@@ -73,7 +73,7 @@ func PostText(ctx *gin.Context) {
 			ctx.JSON(http.StatusOK, gin.H{"status": "error", "message": err.Error()})
 		}
 		req := &xhttp.ReqParams{
-			UrlStr: config.CONFIG_PARAMS.DownstreamCallPair["compose_post"],
+			UrlStr: config.CONFIG_PARAMS.DownstreamCallPair["compose-post"],
 			Method: http.MethodPost,
 			// map[string][]string{"Content-Type": {"application/json"}}
 			Header: ctx.Request.Header,

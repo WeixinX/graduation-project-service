@@ -17,6 +17,7 @@
 !*.json
 !*.csv
 !*.yml
+!*.yaml
 !*.cpp
 !*.py
 !*.sh
@@ -25,6 +26,9 @@
 !LICENSE
 
 !Makefile
+!Dockerfile
+!*.Dockerfile
+!Dockerfil.*
 
 # ...even if they are in subdirectories
 !*/

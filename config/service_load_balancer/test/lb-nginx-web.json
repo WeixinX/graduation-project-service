@@ -1,0 +1,13 @@
+{
+  "load_balancer_name": "lb-nginx-web",
+  "port": "8011",
+  "upstream_service_name": "null",
+  "downstream_instance_list": {
+    "service_name": "nginx-web",
+    "instances": [
+      {"id": "nginx-web-1","call_url": "http://localhost:8101/do_post","current_weight": 0,"effective_weight": 1}
+    ],
+    "replica_num": 1,
+    "total": 1
+  }
+}

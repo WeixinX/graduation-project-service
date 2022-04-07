@@ -1,8 +1,8 @@
 {
-  "service_name": "compose_post",
-  "instance_id": "compose_post_2",
+  "service_name": "compose-post",
+  "instance_id": "compose-post-2",
   "port": "8206",
   "downstream_call_list": [
-    {"service_name": "write_timeline","lb_call_url": "http://compose_post_to_write_timeline:8067/lb_api/call"}
+    {"service_name": "write-timeline","lb_call_url": "http://lb-write-timeline:8067/lb_api/call"}
   ]
 }

@@ -1,0 +1,13 @@
+{
+  "load_balancer_name": "lb-unique-id",
+  "port": "8012",
+  "upstream_service_name": "nginx-web",
+  "downstream_instance_list": {
+    "service_name": "unique-id",
+    "instances": [
+      {"id": "unique-id-1","call_url": "http://localhost:8102/get_unique_id","current_weight": 0,"effective_weight": 1}
+    ],
+    "replica_num": 1,
+    "total": 1
+  }
+}

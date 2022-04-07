@@ -3,20 +3,20 @@
 # this script exec will stop all test demo service
 
 SERVICE_LIST=(\
-	nginx_web \
-	unique_id \
-	user_tag \
+	nginx-web \
+	unique-id \
+	user-tag \
 	media \
 	text \
-	compose_post \
-	write_timeline \
+	compose-post \
+	write-timeline \
 	)
 
 for name in ${SERVICE_LIST[*]}; do
-	pid=$(ps -ef | grep $name | grep -v grep | awk '{print $2}')
+	pid=$(ps -ef | grep "$name" | grep -v grep | awk '{print $2}')
 
 	if [ "$pid" ]; then
-		kill -9 $pid && echo "$name has been stopped..."
+		kill -9 "$pid" && echo "$name has been stopped..."
 	else
 		echo "$name is not started!"
 	fi

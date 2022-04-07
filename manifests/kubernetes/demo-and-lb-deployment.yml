@@ -1,0 +1,780 @@
+# demo
+# nginx-web
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-web-1
+  namespace: service
+  labels:
+    app: nginx-web-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-web-1
+  template:
+    metadata:
+      labels:
+        app: nginx-web-1
+    spec:
+      containers:
+        - name: nginx-web-1
+          image: nginx-web-1
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8101
+          resources:
+            limits:
+              cpu: 250m
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-web-2
+  namespace: service
+  labels:
+    app: nginx-web-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-web-2
+  template:
+    metadata:
+      labels:
+        app: nginx-web-2
+    spec:
+      containers:
+        - name: nginx-web-2
+          image: nginx-web-2
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8201
+          resources:
+            limits:
+              cpu: 250m
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-web-3
+  namespace: service
+  labels:
+    app: nginx-web-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-web-3
+  template:
+    metadata:
+      labels:
+        app: nginx-web-3
+    spec:
+      containers:
+        - name: nginx-web-3
+          image: nginx-web-3
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8301
+          resources:
+            limits:
+              cpu: 250m
+
+---
+# unique-id
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: unique-id-1
+  namespace: service
+  labels:
+    app: unique-id-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: unique-id-1
+  template:
+    metadata:
+      labels:
+        app: unique-id-1
+    spec:
+      containers:
+        - name: unique-id-1
+          image: unique-id-1
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8102
+          resources:
+            limits:
+              cpu: 250m
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: unique-id-2
+  namespace: service
+  labels:
+    app: unique-id-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: unique-id-2
+  template:
+    metadata:
+      labels:
+        app: unique-id-2
+    spec:
+      containers:
+        - name: unique-id-2
+          image: unique-id-2
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8202
+          resources:
+            limits:
+              cpu: 250m
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: unique-id-3
+  namespace: service
+  labels:
+    app: unique-id-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: unique-id-3
+  template:
+    metadata:
+      labels:
+        app: unique-id-3
+    spec:
+      containers:
+        - name: unique-id-3
+          image: unique-id-3
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8302
+          resources:
+            limits:
+              cpu: 250m
+
+---
+# user-tag
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-tag-1
+  namespace: service
+  labels:
+    app: user-tag-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-tag-1
+  template:
+    metadata:
+      labels:
+        app: user-tag-1
+    spec:
+      containers:
+        - name: user-tag-1
+          image: user-tag-1
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8103
+          resources:
+            limits:
+              cpu: 250m
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-tag-2
+  namespace: service
+  labels:
+    app: user-tag-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-tag-2
+  template:
+    metadata:
+      labels:
+        app: user-tag-2
+    spec:
+      containers:
+        - name: user-tag-2
+          image: user-tag-2
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8203
+          resources:
+            limits:
+              cpu: 250m
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-tag-3
+  namespace: service
+  labels:
+    app: user-tag-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-tag-3
+  template:
+    metadata:
+      labels:
+        app: user-tag-3
+    spec:
+      containers:
+        - name: user-tag-3
+          image: user-tag-3
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8303
+          resources:
+            limits:
+              cpu: 250m
+
+---
+# media
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: media-1
+  namespace: service
+  labels:
+    app: media-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: media-1
+  template:
+    metadata:
+      labels:
+        app: media-1
+    spec:
+      containers:
+        - name: media-1
+          image: media-1
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8104
+          resources:
+            limits:
+              cpu: 250m
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: media-2
+  namespace: service
+  labels:
+    app: media-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: media-2
+  template:
+    metadata:
+      labels:
+        app: media-2
+    spec:
+      containers:
+        - name: media-2
+          image: media-2
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8204
+          resources:
+            limits:
+              cpu: 250m
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: media-3
+  namespace: service
+  labels:
+    app: media-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: media-3
+  template:
+    metadata:
+      labels:
+        app: media-3
+    spec:
+      containers:
+        - name: media-3
+          image: media-3
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8304
+          resources:
+            limits:
+              cpu: 250m
+
+---
+# text
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: text-1
+  namespace: service
+  labels:
+    app: text-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: text-1
+  template:
+    metadata:
+      labels:
+        app: text-1
+    spec:
+      containers:
+        - name: text-1
+          image: text-1
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8105
+          resources:
+            limits:
+              cpu: 250m
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: text-2
+  namespace: service
+  labels:
+    app: text-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: text-2
+  template:
+    metadata:
+      labels:
+        app: text-2
+    spec:
+      containers:
+        - name: text-2
+          image: text-2
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8205
+          resources:
+            limits:
+              cpu: 250m
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: text-3
+  namespace: service
+  labels:
+    app: text-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: text-3
+  template:
+    metadata:
+      labels:
+        app: text-3
+    spec:
+      containers:
+        - name: text-3
+          image: text-3
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8305
+          resources:
+            limits:
+              cpu: 250m
+
+---
+# compose-post
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: compose-post-1
+  namespace: service
+  labels:
+    app: compose-post-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: compose-post-1
+  template:
+    metadata:
+      labels:
+        app: compose-post-1
+    spec:
+      containers:
+        - name: compose-post-1
+          image: compose-post-1
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8106
+          resources:
+            limits:
+              cpu: 250m
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: compose-post-2
+  namespace: service
+  labels:
+    app: compose-post-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: compose-post-2
+  template:
+    metadata:
+      labels:
+        app: compose-post-2
+    spec:
+      containers:
+        - name: compose-post-2
+          image: compose-post-2
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8206
+          resources:
+            limits:
+              cpu: 250m
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: compose-post-3
+  namespace: service
+  labels:
+    app: compose-post-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: compose-post-3
+  template:
+    metadata:
+      labels:
+        app: compose-post-3
+    spec:
+      containers:
+        - name: compose-post-3
+          image: compose-post-3
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8306
+          resources:
+            limits:
+              cpu: 250m
+
+---
+# write-timeline
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: write-timeline-1
+  namespace: service
+  labels:
+    app: write-timeline-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: write-timeline-1
+  template:
+    metadata:
+      labels:
+        app: write-timeline-1
+    spec:
+      containers:
+        - name: write-timeline-1
+          image: write-timeline-1
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8107
+          resources:
+            limits:
+              cpu: 250m
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: write-timeline-2
+  namespace: service
+  labels:
+    app: write-timeline-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: write-timeline-2
+  template:
+    metadata:
+      labels:
+        app: write-timeline-2
+    spec:
+      containers:
+        - name: write-timeline-2
+          image: write-timeline-2
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8207
+          resources:
+            limits:
+              cpu: 250m
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: write-timeline-3
+  namespace: service
+  labels:
+    app: write-timeline-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: write-timeline-3
+  template:
+    metadata:
+      labels:
+        app: write-timeline-3
+    spec:
+      containers:
+        - name: write-timeline-3
+          image: write-timeline-3
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8307
+          resources:
+            limits:
+              cpu: 250m
+
+
+
+---
+# lb
+# lb-nginx-web
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lb-nginx-web
+  namespace: service
+  labels:
+    app: lb-nginx-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lb-nginx-web
+  template:
+    metadata:
+      labels:
+        app: lb-nginx-web
+    spec:
+      containers:
+        - name: lb-nginx-web
+          image: lb-nginx-web
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8011
+          resources:
+            limits:
+              cpu: 800m
+---
+# lb-unique-id
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lb-unique-id
+  namespace: service
+  labels:
+    app: lb-unique-id
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lb-unique-id
+  template:
+    metadata:
+      labels:
+        app: lb-unique-id
+    spec:
+      containers:
+        - name: lb-unique-id
+          image: lb-unique-id
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8012
+          resources:
+            limits:
+              cpu: 800m
+---
+# lb-user-tag
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lb-user-tag
+  namespace: service
+  labels:
+    app: lb-user-tag
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lb-user-tag
+  template:
+    metadata:
+      labels:
+        app: lb-user-tag
+    spec:
+      containers:
+        - name: lb-user-tag
+          image: lb-user-tag
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8013
+          resources:
+            limits:
+              cpu: 800m
+---
+# lb-media
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lb-media
+  namespace: service
+  labels:
+    app: lb-media
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lb-media
+  template:
+    metadata:
+      labels:
+        app: lb-media
+    spec:
+      containers:
+        - name: lb-media
+          image: lb-media
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8014
+          resources:
+            limits:
+              cpu: 800m
+---
+# lb-text
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lb-text
+  namespace: service
+  labels:
+    app: lb-text
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lb-text
+  template:
+    metadata:
+      labels:
+        app: lb-text
+    spec:
+      containers:
+        - name: lb-text
+          image: lb-text
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8015
+          resources:
+            limits:
+              cpu: 800m
+---
+# lb-compose-post
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lb-compose-post
+  namespace: service
+  labels:
+    app: lb-compose-post
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lb-compose-post
+  template:
+    metadata:
+      labels:
+        app: lb-compose-post
+    spec:
+      containers:
+        - name: lb-compose-post
+          image: lb-compose-post
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8056
+          resources:
+            limits:
+              cpu: 800m
+---
+# lb-write-timeline
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lb-write-timeline
+  namespace: service
+  labels:
+    app: lb-write-timeline
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lb-write-timeline
+  template:
+    metadata:
+      labels:
+        app: lb-write-timeline
+    spec:
+      containers:
+        - name: lb-write-timeline
+          image: lb-write-timeline
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8067
+          resources:
+            limits:
+              cpu: 800m

@@ -1,11 +1,11 @@
 {
-  "service_name": "nginx_web",
-  "instance_id": "nginx_web_2",
+  "service_name": "nginx-web",
+  "instance_id": "nginx-web-2",
   "port": "8201",
   "downstream_call_list": [
-    {"service_name": "unique_id","lb_call_url": "http://nginx_web_to_unique_id:8012/lb_api/call"},
-    {"service_name": "user_tag","lb_call_url": "http://nginx_web_to_user_tag:8013/lb_api/call"},
-    {"service_name": "media","lb_call_url": "http://nginx_web_to_media:8014/lb_api/call"},
-    {"service_name": "text","lb_call_url": "http://nginx_web_to_text:8015/lb_api/call"}
+    {"service_name": "unique-id","lb_call_url": "http://lb-unique-id:8012/lb_api/call"},
+    {"service_name": "user-tag","lb_call_url": "http://lb-user-tag:8013/lb_api/call"},
+    {"service_name": "media","lb_call_url": "http://lb-media:8014/lb_api/call"},
+    {"service_name": "text","lb_call_url": "http://lb-text:8015/lb_api/call"}
   ]
 }
