@@ -80,6 +80,9 @@ PORTS=(\
   8067 \
 )
 
+# minikube environment
+eval "$(minikube docker-env)"
+
 for (( i = 0; i < $LEN; i++ )); do
   echo "run container ${SERVICES[i]}"
   docker run --rm -d --name "${SERVICES[i]}" -p "${PORTS[i]}:${PORTS[i]}" "${SERVICES[i]}"

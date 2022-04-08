@@ -42,6 +42,9 @@ SERVICES=(\
   lb-write-timeline \
 )
 
+# minikube environment
+eval "$(minikube docker-env)"
+
 for (( i = 0; i < $LEN; i++ )); do
   echo "stop container ${SERVICES[i]}"
   CID=$(docker container ps | grep "${SERVICES[i]}" | awk '{print $1}')
