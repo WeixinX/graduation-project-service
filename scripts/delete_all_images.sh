@@ -5,10 +5,16 @@
 
 cd ..
 
+DOCKER_ENV=$1
 REPLICA=3
 
-# minikube environment
-eval "$(minikube docker-env)"
+if [ "$DOCKER_ENV" == "minikube" ]; then
+    # minikube environment
+    echo "script execution in the minikube docker-env environment..."
+    eval "$(minikube docker-env)"
+else
+    echo "script execution in the host docker environment..."
+fi
 
 # demo service
 DEMO_LIST=(\

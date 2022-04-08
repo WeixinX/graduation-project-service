@@ -42,8 +42,14 @@ SERVICES=(\
   lb-write-timeline \
 )
 
-# minikube environment
-eval "$(minikube docker-env)"
+DOCKER_ENV=$1
+if [ "$DOCKER_ENV" == "minikube" ]; then
+    # minikube environment
+    echo "script execution in the minikube docker-env environment..."
+    eval "$(minikube docker-env)"
+else
+    echo "script execution in the host docker environment..."
+fi
 
 for (( i = 0; i < $LEN; i++ )); do
   echo "stop container ${SERVICES[i]}"
