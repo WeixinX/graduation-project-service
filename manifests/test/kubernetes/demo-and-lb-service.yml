@@ -1,0 +1,416 @@
+# demo
+# nginx-web
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-web-1
+  namespace: service
+spec:
+  selector:
+    app: nginx-web-1
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8101
+      targetPort: 8101
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-web-2
+  namespace: service
+spec:
+  selector:
+    app: nginx-web-2
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8201
+      targetPort: 8201
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-web-3
+  namespace: service
+spec:
+  selector:
+    app: nginx-web-3
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8301
+      targetPort: 8301
+
+---
+# unique-id
+apiVersion: v1
+kind: Service
+metadata:
+  name: unique-id-1
+  namespace: service
+spec:
+  selector:
+    app: unique-id-1
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8102
+      targetPort: 8102
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: unique-id-2
+  namespace: service
+spec:
+  selector:
+    app: unique-id-2
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8202
+      targetPort: 8202
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: unique-id-3
+  namespace: service
+spec:
+  selector:
+    app: unique-id-3
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8302
+      targetPort: 8302
+
+---
+# user-tag
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-tag-1
+  namespace: service
+spec:
+  selector:
+    app: user-tag-1
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8103
+      targetPort: 8103
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-tag-2
+  namespace: service
+spec:
+  selector:
+    app: user-tag-2
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8203
+      targetPort: 8203
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-tag-3
+  namespace: service
+spec:
+  selector:
+    app: user-tag-3
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8303
+      targetPort: 8303
+
+---
+# media
+apiVersion: v1
+kind: Service
+metadata:
+  name: media-1
+  namespace: service
+spec:
+  selector:
+    app: media-1
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8104
+      targetPort: 8104
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: media-2
+  namespace: service
+spec:
+  selector:
+    app: media-2
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8204
+      targetPort: 8204
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: media-3
+  namespace: service
+spec:
+  selector:
+    app: media-3
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8304
+      targetPort: 8304
+
+---
+# text
+apiVersion: v1
+kind: Service
+metadata:
+  name: text-1
+  namespace: service
+spec:
+  selector:
+    app: text-1
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8105
+      targetPort: 8105
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: text-2
+  namespace: service
+spec:
+  selector:
+    app: text-2
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8205
+      targetPort: 8205
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: text-3
+  namespace: service
+spec:
+  selector:
+    app: text-3
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8305
+      targetPort: 8305
+
+---
+# compose-post
+apiVersion: v1
+kind: Service
+metadata:
+  name: compose-post-1
+  namespace: service
+spec:
+  selector:
+    app: compose-post-1
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8106
+      targetPort: 8106
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: compose-post-2
+  namespace: service
+spec:
+  selector:
+    app: compose-post-2
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8206
+      targetPort: 8206
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: compose-post-3
+  namespace: service
+spec:
+  selector:
+    app: compose-post-3
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8306
+      targetPort: 8306
+
+---
+# write-timeline
+apiVersion: v1
+kind: Service
+metadata:
+  name: write-timeline-1
+  namespace: service
+spec:
+  selector:
+    app: write-timeline-1
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8107
+      targetPort: 8107
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: write-timeline-2
+  namespace: service
+spec:
+  selector:
+    app: write-timeline-2
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8207
+      targetPort: 8207
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: write-timeline-3
+  namespace: service
+spec:
+  selector:
+    app: write-timeline-3
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8307
+      targetPort: 8307
+
+
+
+---
+# lb
+# lb-nginx-web
+apiVersion: v1
+kind: Service
+metadata:
+  name: lb-nginx-web
+  namespace: service
+spec:
+  selector:
+    app: lb-nginx-web
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8011
+      targetPort: 8011
+---
+# lb-unique-id
+apiVersion: v1
+kind: Service
+metadata:
+  name: lb-unique-id
+  namespace: service
+spec:
+  selector:
+    app: lb-unique-id
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8012
+      targetPort: 8012
+---
+# lb-user-tag
+apiVersion: v1
+kind: Service
+metadata:
+  name: lb-user-tag
+  namespace: service
+spec:
+  selector:
+    app: lb-user-tag
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8013
+      targetPort: 8013
+---
+# lb-media
+apiVersion: v1
+kind: Service
+metadata:
+  name: lb-media
+  namespace: service
+spec:
+  selector:
+    app: lb-media
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8014
+      targetPort: 8014
+---
+# lb-text
+apiVersion: v1
+kind: Service
+metadata:
+  name: lb-text
+  namespace: service
+spec:
+  selector:
+    app: lb-text
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8015
+      targetPort: 8015
+---
+# lb-compose-post
+apiVersion: v1
+kind: Service
+metadata:
+  name: lb-compose-post
+  namespace: service
+spec:
+  selector:
+    app: lb-compose-post
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8056
+      targetPort: 8056
+---
+# lb-write-timeline
+apiVersion: v1
+kind: Service
+metadata:
+  name: lb-write-timeline
+  namespace: service
+spec:
+  selector:
+    app: lb-write-timeline
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8067
+      targetPort: 8067

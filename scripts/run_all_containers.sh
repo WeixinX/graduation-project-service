@@ -82,15 +82,28 @@ PORTS=(\
 
 DOCKER_ENV=$1
 
+NET_NAME="service"
+
+# Docker environment
 if [ "$DOCKER_ENV" == "minikube" ]; then
-    # minikube environment
     echo "script execution in the minikube docker-env environment..."
     eval "$(minikube docker-env)"
-else
+
+elif [ "$DOCKER_ENV" == "host" ]; then
     echo "script execution in the host docker environment..."
+
+    # create docker network
+    NET_ID=$(docker network ls | grep "$NET_NAME" | awk '{print $1}')
+    if [ -z "$NET_ID" ]; then
+        docker network create "$NET_NAME"
+    fi
+
+else
+    echo "[ERROR] first arg can only be 'minikube' or 'host'"
+    exit 1
 fi
 
 for (( i = 0; i < $LEN; i++ )); do
   echo "run container ${SERVICES[i]}"
-  docker run --rm -d --name "${SERVICES[i]}" -p "${PORTS[i]}:${PORTS[i]}" "${SERVICES[i]}"
+  docker run --rm -d --name "${SERVICES[i]}" --network "$NET_NAME" -p "${PORTS[i]}:${PORTS[i]}" "${SERVICES[i]}"
 done

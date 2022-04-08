@@ -6,16 +6,39 @@
 cd ..
 
 DOCKER_ENV=$1
+TEST_CONFIG=$2
+
 PRO_PATH=$(pwd)
 DF_HOME="$PRO_PATH/manifests/docker"
 REPLICA=3
 
+# Docker environment
 if [ "$DOCKER_ENV" == "minikube" ]; then
-    # minikube environment
     echo "script execution in the minikube docker-env environment..."
     eval "$(minikube docker-env)"
-else
+
+elif [ "$DOCKER_ENV" == "host" ]; then
     echo "script execution in the host docker environment..."
+
+else
+    echo "[ERROR] first arg can only be 'minikube' or 'host'"
+    exit 1
+fi
+
+# Test configure
+# the difference between 'test' and 'no test' is that
+# the 'host' of 'call_url' in the configuration file is 'localhost'
+if [ "$TEST_CONFIG" == "test" ]; then
+    echo "script execution using test configure..."
+    DF_HOME="$PRO_PATH/manifests/test/docker"
+
+elif [ "$TEST_CONFIG" == "no_test" ]; then
+    echo "script execution no using test configure..."
+    DF_HOME="$PRO_PATH/manifests/docker"
+
+else
+    echo "[ERROR] second arg can only be 'test' or 'no_test'"
+    exit 1
 fi
 
 

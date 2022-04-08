@@ -1,0 +1,15 @@
+{
+  "load_balancer_name": "lb-compose-post",
+  "port": "8056",
+  "upstream_service_name": "text",
+  "downstream_instance_list": {
+    "service_name": "compose-post",
+    "instances": [
+      {"id": "compose-post-1","call_url": "http://compose-post-1.service:8106/compose_post","current_weight": 0,"effective_weight": 1},
+      {"id": "compose-post-2","call_url": "http://compose-post-2.service:8206/compose_post","current_weight": 0,"effective_weight": 1},
+      {"id": "compose-post-3","call_url": "http://compose-post-3.service:8306/compose_post","current_weight": 0,"effective_weight": 1}
+    ],
+    "replica_num": 1,
+    "total": 3
+  }
+}

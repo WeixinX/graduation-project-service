@@ -1,0 +1,6 @@
+{
+  "service_name": "unique-id",
+  "instance_id": "unique-id-2",
+  "port": "8202",
+  "downstream_call_list": []
+}
