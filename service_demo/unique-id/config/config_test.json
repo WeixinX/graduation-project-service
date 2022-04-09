@@ -2,5 +2,6 @@
   "service_name": "unique_id",
   "instance_id": "unique_id_1",
   "port": "8102",
+  "jaeger_agent": "localhost:6831",
   "downstream_call_list": []
 }

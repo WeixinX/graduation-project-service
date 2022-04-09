@@ -25,7 +25,8 @@ func main() {
 	}
 
 	// 初始化全局 Tracer
-	_, closer := gin_mw.NewGlobalJaegerTracer(config.CONFIG_PARAMS.ServiceName)
+	serviceName := config.CONFIG_PARAMS.ServiceName
+	_, closer := gin_mw.NewGlobalJaegerTracer(serviceName, config.CONFIG_PARAMS.JaegerAgent)
 	defer closer.Close()
 
 	// 初始化指标采集
@@ -36,8 +37,8 @@ func main() {
 
 	engine.POST("/post_media",
 		// TODO: 修改 IP
-		gin_mw.PromMiddleWare(metrics, config.CONFIG_PARAMS.ServiceName, "127.0.0.1", config.CONFIG_PARAMS.InstanceID),
-		gin_mw.JaegerTracerMiddleWare(config.CONFIG_PARAMS.ServiceName),
+		gin_mw.PromMiddleWare(metrics, serviceName, "127.0.0.1", config.CONFIG_PARAMS.InstanceID),
+		gin_mw.JaegerTracerMiddleWare(serviceName),
 
 		api.PostMedia,
 	)

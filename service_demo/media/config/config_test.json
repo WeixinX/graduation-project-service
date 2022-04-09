@@ -2,5 +2,6 @@
   "service_name": "media",
   "instance_id": "media_1",
   "port": "8104",
+  "jaeger_agent": "localhost:6831",
   "downstream_call_list": []
 }

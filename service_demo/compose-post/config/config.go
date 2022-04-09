@@ -10,6 +10,7 @@ type ConfigParams struct {
 	ServiceName        string            `json:"service_name"` // 该服务名称
 	InstanceID         string            `json:"instance_id"`  // 该服务实例标识符
 	Port               string            `json:"port"`         // 该服务实例运行端口
+	JaegerAgent        string            `json:"jaeger_agent"` // 设置 jaeger agent 主机:端口
 	DownstreamCallList []Downstream      `json:"downstream_call_list"`
 	DownstreamCallPair map[string]string // 方便用下游服务名称映射到调用 URL
 }

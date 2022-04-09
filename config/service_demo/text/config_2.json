@@ -2,6 +2,7 @@
   "service_name": "text",
   "instance_id": "text-2",
   "port": "8205",
+  "jaeger_agent": "jaeger-agent.tracing:6831",
   "downstream_call_list": [
     {"service_name": "compose-post","lb_call_url": "http://lb-compose-post:8056/lb_api/call"}
   ]

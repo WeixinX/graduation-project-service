@@ -2,5 +2,6 @@
   "service_name": "write_timeline",
   "instance_id": "write_timeline_1",
   "port": "8107",
+  "jaeger_agent": "localhost:6831",
   "downstream_call_list": []
 }

@@ -2,5 +2,6 @@
   "service_name": "user_tag",
   "instance_id": "user_tag_1",
   "port": "8103",
+  "jaeger_agent": "localhost:6831",
   "downstream_call_list": []
 }

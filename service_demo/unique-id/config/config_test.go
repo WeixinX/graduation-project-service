@@ -11,7 +11,8 @@ func TestConfigSetUp(t *testing.T) {
 	if CONFIG_PARAMS != nil {
 		fmt.Printf("service_name: %s\n", CONFIG_PARAMS.ServiceName)
 		fmt.Printf("instance_id: %s\n", CONFIG_PARAMS.InstanceID)
-		fmt.Printf("port: %s\n\n", CONFIG_PARAMS.Port)
+		fmt.Printf("port: %s\n", CONFIG_PARAMS.Port)
+		fmt.Printf("jaeger_agent: %s\n\n", CONFIG_PARAMS.JaegerAgent)
 		fmt.Println("downstream_call_list info:")
 		for _, downstream := range CONFIG_PARAMS.DownstreamCallList {
 			fmt.Printf("{%s=%s}\n", downstream.ServiceName, downstream.LBCallURL)

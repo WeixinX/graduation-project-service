@@ -2,5 +2,6 @@
   "service_name": "media",
   "instance_id": "media-2",
   "port": "8204",
+  "jaeger_agent": "jaeger-agent.tracing:6831",
   "downstream_call_list": []
 }

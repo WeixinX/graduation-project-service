@@ -6,7 +6,7 @@
 cd ..
 
 DOCKER_ENV=$1
-TEST_CONFIG=$2
+#TEST_CONFIG=$2
 
 PRO_PATH=$(pwd)
 DF_HOME="$PRO_PATH/manifests/docker"
@@ -28,18 +28,18 @@ fi
 # Test configure
 # the difference between 'test' and 'no test' is that
 # the 'host' of 'call_url' in the configuration file is 'localhost'
-if [ "$TEST_CONFIG" == "test" ]; then
-    echo "script execution using test configure..."
-    DF_HOME="$PRO_PATH/manifests/test/docker"
-
-elif [ "$TEST_CONFIG" == "no_test" ]; then
-    echo "script execution no using test configure..."
-    DF_HOME="$PRO_PATH/manifests/docker"
-
-else
-    echo "[ERROR] second arg can only be 'test' or 'no_test'"
-    exit 1
-fi
+#if [ "$TEST_CONFIG" == "test" ]; then
+#    echo "script execution using test configure..."
+#    DF_HOME="$PRO_PATH/manifests/test/docker"
+#
+#elif [ "$TEST_CONFIG" == "no_test" ]; then
+#    echo "script execution no using test configure..."
+#    DF_HOME="$PRO_PATH/manifests/docker"
+#
+#else
+#    echo "[ERROR] second arg can only be 'test' or 'no_test'"
+#    exit 1
+#fi
 
 
 # demo service

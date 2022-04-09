@@ -2,5 +2,6 @@
   "service_name": "unique-id",
   "instance_id": "unique-id-2",
   "port": "8202",
+  "jaeger_agent": "jaeger-agent.tracing:6831",
   "downstream_call_list": []
 }

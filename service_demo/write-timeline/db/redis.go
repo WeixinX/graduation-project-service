@@ -41,6 +41,6 @@ func RedisPost(ctx *gin.Context, text Text) {
 	sleepTime := random.Intn(RedisMaxSleepMs-RedisMinSleepMs) + RedisMinSleepMs
 	fmt.Printf("post redis sleep time: %v\n", time.Millisecond*time.Duration(sleepTime))
 	fmt.Printf("text info:\n{user_id: %s, time_stamp: %s, content: %s}\n",
-		text.UserID, text.TimeStamp, text.Content)
+		text.UserID, text.TimeStamp, text.TextContent)
 	time.Sleep(time.Millisecond * time.Duration(sleepTime))
 }

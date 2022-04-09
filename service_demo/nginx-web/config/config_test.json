@@ -2,6 +2,7 @@
   "service_name": "nginx_web",
   "instance_id": "nginx_web_1",
   "port": "8101",
+  "jaeger_agent": "localhost:6831",
   "downstream_call_list": [
     {"service_name": "unique_id","lb_call_url": "http://localhost:8012/lb_api/call"},
     {"service_name": "user_tag","lb_call_url": "http://localhost:8013/lb_api/call"},

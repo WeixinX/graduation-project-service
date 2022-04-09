@@ -31,6 +31,7 @@ func main() {
 
 	// 启动服务
 	engine := gin.Default()
+	// 不使用中间件采集 lb 的 traces 和 metrics
 	engine.Use()
 
 	router.RouterSetUp(engine)
