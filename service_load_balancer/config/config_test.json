@@ -9,7 +9,7 @@
       {"id": "service_a_2","call_url": "http://service_a_2:8888/action","current_weight": 0,"effective_weight": 1},
       {"id": "service_a_3","call_url": "http://service_a_3:8888/action","current_weight": 0,"effective_weight": 1}
     ],
-    "replica_num": 2,
+    "replica_num": 1,
     "total": 0
   }
 }

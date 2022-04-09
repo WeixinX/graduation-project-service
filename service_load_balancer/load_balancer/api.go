@@ -63,7 +63,13 @@ func Scaling(ctx *gin.Context) {
 	addNum, _ := strconv.Atoi(addNumStr)
 	INSTANCE_LIST.AddReplica(addNum)
 
-	ctx.JSON(http.StatusOK, gin.H{"status": "success"})
+	ctx.JSON(http.StatusOK, gin.H{
+		"status": "success",
+		"data": map[string]interface{}{
+			"current_replica_num": INSTANCE_LIST.ReplicaNum,
+			"total_replica_num":   INSTANCE_LIST.Total,
+		},
+	})
 }
 
 // Balancing 转移/均衡
@@ -124,7 +130,10 @@ func GetReplicaNum(ctx *gin.Context) {
 	} else {
 		ctx.JSON(http.StatusOK, gin.H{
 			"status": "success",
-			"data":   map[string]interface{}{"current_replica_num": INSTANCE_LIST.ReplicaNum},
+			"data": map[string]interface{}{
+				"current_replica_num": INSTANCE_LIST.ReplicaNum,
+				"total_replica_num":   INSTANCE_LIST.Total,
+			},
 		})
 	}
 }

@@ -10,7 +10,7 @@ import (
 	过程:
 		1. 遍历实例列表 instance.CurrentWeight += instance.EffectiveWeight, total += instance.EffectiveWeight
 		2. 选出实例中 CurrentWeight 最大的作为此次负载实例，如果一样大则随机选择
-		3. 对于选处的实例，执行 instance.CurrentWeight -= Total
+		3. 对于选处的实例，执行 instance.CurrentWeight -= total
 */
 
 const (
@@ -52,8 +52,6 @@ func WRR(list *InstanceList) (retInstance *Instance) {
 		//}
 	}
 	//fmt.Println("}")
-
-	list.Total = total
 
 	// 相同权重，使用随机算法
 	seed := rand.NewSource(time.Now().Unix())

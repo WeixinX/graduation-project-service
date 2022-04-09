@@ -91,6 +91,9 @@ func (i *InstanceList) RemoveInstance(instanceID string) {
 
 	i.TotalMutex.Lock()
 	INSTANCE_LIST.Total = len(instances)
+	if INSTANCE_LIST.ReplicaNum > INSTANCE_LIST.Total {
+		INSTANCE_LIST.ReplicaNum = INSTANCE_LIST.Total
+	}
 	i.TotalMutex.Unlock()
 
 	i.InstancesMutex.Lock()

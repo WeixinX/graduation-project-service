@@ -2,6 +2,7 @@ package router
 
 import (
 	"fmt"
+	"io/ioutil"
 
 	"net/http"
 	"net/http/httptest"
@@ -24,9 +25,14 @@ func TestScaling(t *testing.T) {
 	r := gin.Default()
 	RouterSetUp(r)
 
-	w := httptest.NewRecorder()
-	req, _ := http.NewRequest("POST", "/lb_api/scaling?add_num=1", nil)
+	var w *httptest.ResponseRecorder
+	var req *http.Request
+
+	w = httptest.NewRecorder()
+	req, _ = http.NewRequest("POST", "/lb_api/scaling?add_num=1", nil)
 	r.ServeHTTP(w, req)
+	resp, _ := ioutil.ReadAll(w.Body)
+	fmt.Println(string(resp))
 
 	fmt.Println("after action:")
 	PrintInstanceListPretty(load_balancer.INSTANCE_LIST)
