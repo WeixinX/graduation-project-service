@@ -4,6 +4,6 @@
   "port": "8206",
   "jaeger_agent": "jaeger-agent.tracing:6831",
   "downstream_call_list": [
-    {"service_name": "write-timeline","lb_call_url": "http://lb-write-timeline:8067/lb_api/call"}
+    {"service_name": "write-timeline","lb_call_url": "http://lb-write-timeline.service:8067/lb_api/call"}
   ]
 }

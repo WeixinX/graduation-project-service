@@ -4,9 +4,9 @@
   "port": "8101",
   "jaeger_agent": "jaeger-agent.tracing:6831",
   "downstream_call_list": [
-    {"service_name": "unique-id","lb_call_url": "http://lb-unique-id:8012/lb_api/call"},
-    {"service_name": "user-tag","lb_call_url": "http://lb-user-tag:8013/lb_api/call"},
-    {"service_name": "media","lb_call_url": "http://lb-media:8014/lb_api/call"},
-    {"service_name": "text","lb_call_url": "http://lb-text:8015/lb_api/call"}
+    {"service_name": "unique-id","lb_call_url": "http://lb-unique-id.service:8012/lb_api/call"},
+    {"service_name": "user-tag","lb_call_url": "http://lb-user-tag.service:8013/lb_api/call"},
+    {"service_name": "media","lb_call_url": "http://lb-media.service:8014/lb_api/call"},
+    {"service_name": "text","lb_call_url": "http://lb-text.service:8015/lb_api/call"}
   ]
 }

@@ -5,9 +5,9 @@
   "downstream_instance_list": {
     "service_name": "write-timeline",
     "instances": [
-      {"id": "write-timeline-1","call_url": "http://write-timeline-1:8107/write_timeline","current_weight": 0,"effective_weight": 1},
-      {"id": "write-timeline-2","call_url": "http://write-timeline-2:8207/write_timeline","current_weight": 0,"effective_weight": 1},
-      {"id": "write-timeline-3","call_url": "http://write-timeline-3:8307/write_timeline","current_weight": 0,"effective_weight": 1}
+      {"id": "write-timeline-1","call_url": "http://write-timeline-1.service:8107/write_timeline","current_weight": 0,"effective_weight": 1},
+      {"id": "write-timeline-2","call_url": "http://write-timeline-2.service:8207/write_timeline","current_weight": 0,"effective_weight": 1},
+      {"id": "write-timeline-3","call_url": "http://write-timeline-3.service:8307/write_timeline","current_weight": 0,"effective_weight": 1}
     ],
     "replica_num": 1,
     "total": 3
