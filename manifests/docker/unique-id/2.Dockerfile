@@ -10,7 +10,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositorie
     apk add g++ && \
     g++ -fopenmp -o cpu /tmp/cpu.cpp && \
     apk del g++ && \
-    apk add libgcc libstdc++ libgomp \
+    apk add libgcc libstdc++ libgomp
 
 ENTRYPOINT ["./unique-id"]
 CMD ["-config_file","./config.json"]

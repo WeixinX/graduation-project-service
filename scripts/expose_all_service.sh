@@ -6,8 +6,36 @@
 INTRA_NET_IP='10.10.10.49'
 NAMESPACE="service"
 
-LEN=7
+LEN=28
 SERVICES=(\
+	nginx-web-1 \
+	nginx-web-2 \
+	nginx-web-3 \
+	\
+	unique-id-1 \
+	unique-id-2 \
+	unique-id-3 \
+	\
+	user-tag-1 \
+	user-tag-2 \
+	user-tag-3 \
+	\
+	media-1 \
+	media-2 \
+	media-3 \
+	\
+	text-1 \
+	text-2 \
+	text-3 \
+	\
+	compose-post-1 \
+	compose-post-2 \
+	compose-post-3 \
+	\
+	write-timeline-1 \
+	write-timeline-2 \
+	write-timeline-3 \
+  \
   lb-nginx-web \
   lb-unique-id \
   lb-user-tag \
@@ -17,17 +45,7 @@ SERVICES=(\
   lb-write-timeline \
 )
 
-PORTS=(\
-  8011 \
-  8012 \
-  8013 \
-  8014 \
-  8015 \
-  8056 \
-  8067 \
-)
-
-echo "expose all balancer service..."
+echo "expose all service..."
 
 for (( i = 0; i < $LEN; i++ )); do
     echo "expose ${SERVICES[i]}"
