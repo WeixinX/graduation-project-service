@@ -46,6 +46,7 @@ func main() {
 
 		api.ComposePost,
 	)
+	engine.POST("/anomaly_inject", anomalyInjectHandler)
 	engine.GET("/metrics", gin.WrapH(promhttp.Handler()))
 
 	if err := engine.Run(":" + config.CONFIG_PARAMS.Port); err != nil {
