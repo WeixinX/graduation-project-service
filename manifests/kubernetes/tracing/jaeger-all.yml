@@ -1,0 +1,126 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jaegerall
+  namespace: tracing
+  labels:
+    app: jaegerall
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jaegerall
+  template:
+    metadata:
+      labels:
+        app: jaegerall
+    spec:
+      containers:
+        - name: jaegerall
+          image: jaegertracing/all-in-one:1.29
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5775
+              protocol: UDP
+            - containerPort: 6831
+              protocol: UDP
+            - containerPort: 6832
+              protocol: UDP
+            - containerPort: 5778
+              protocol: TCP
+            - containerPort: 16686
+              protocol: TCP
+            - containerPort: 14268
+              protocol: TCP
+            - containerPort: 14250
+              protocol: TCP
+            - containerPort: 9411
+              protocol: TCP
+          env:
+            - name: SPAN_STORAGE_TYPE
+              value: elasticsearch
+            - name: ES_SERVER_URLS
+              value: http://es.elastic:9200
+            - name: COLLECTOR_ZIPKIN_HOST_PORT
+              value: ":9411"
+            - name: JAEGER_AGENT_PORT
+              value: "6831"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaeger-query
+  namespace: tracing
+  labels:
+    app: jaegerall
+spec:
+  selector:
+    app: jaegerall
+  type: NodePort
+  ports:
+    - name: http-query
+      protocol: TCP
+      port: 16686
+      targetPort: 16686
+    - name: grpc-query
+      protocol: TCP
+      port: 16685
+      targetPort: 16685
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zipkin
+  namespace: tracing
+  labels:
+    app: jaegerall
+spec:
+  selector:
+    app: jaegerall
+  type: ClusterIP
+  ports:
+    - name: http-query
+      port: 9411
+      targetPort: 9411
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaeger-collector
+  namespace: tracing
+  labels:
+    app: jaegerall
+spec:
+  selector:
+    app: jaegerall
+  type: NodePort
+  ports:
+    - name: jaeger-collector-http
+      protocol: TCP
+      port: 14268
+      targetPort: 14268
+    - name: jaeger-collector-grpc
+      protocol: TCP
+      port: 14250
+      targetPort: 14250
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaeger-agent
+  namespace: tracing
+  labels:
+    app: jaegerall
+spec:
+  selector:
+    app: jaegerall
+  type: NodePort
+  ports:
+    - name: jaeger-agent-udp
+      protocol: UDP
+      port: 6831
+      targetPort: 6831

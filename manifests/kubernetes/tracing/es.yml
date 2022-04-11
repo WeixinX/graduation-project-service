@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: es
+  namespace: elastic
+  labels:
+    app: es
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: es
+  template:
+    metadata:
+      labels:
+        app: es
+    spec:
+      containers:
+        - name: es
+          image: docker.elastic.co/elasticsearch/elasticsearch:7.8.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9200
+            - containerPort: 9300
+          env:
+            - name: discovery.type
+              value: single-node
+            - name: ES_JAVA_OPTS
+              value: -Xms512m -Xmx1g
+          volumeMounts:
+            - mountPath: "/usr/share/elasticsearch/data"
+              name: "es-data-volume"
+            - mountPath: "/usr/share/elasticsearch/logs"
+              name: "es-logs-volume"
+      volumes:
+        - name: "es-data-volume"
+          emptyDir: {}
+          # 等知道 k8s 里容器怎么搞到本地文件夹的权限再说
+          # hostPath:
+          #   path: "/home/ubuntu/elastic/es/data"
+          #   type: DirectoryOrCreate
+        - name: "es-logs-volume"
+          emptyDir: {}
+          # hostPath:
+          #   path: "/home/ubuntu/elastic/es/logs"
+          #   type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: es
+  namespace: elastic
+spec:
+  selector:
+    app: es
+  type: NodePort
+  ports:
+    - name: es-9200
+      port: 9200
+      targetPort: 9200
+      protocol: TCP
+    - name: es-9300
+      port: 9300
+      targetPort: 9200
+      protocol: TCP

@@ -25,7 +25,7 @@ spec:
             - containerPort: 8101
           resources:
             limits:
-              cpu: 250m
+              cpu: 200m
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -52,7 +52,7 @@ spec:
             - containerPort: 8201
           resources:
             limits:
-              cpu: 250m
+              cpu: 200m
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -79,7 +79,7 @@ spec:
             - containerPort: 8301
           resources:
             limits:
-              cpu: 250m
+              cpu: 200m
 
 ---
 # unique-id
@@ -108,7 +108,7 @@ spec:
             - containerPort: 8102
           resources:
             limits:
-              cpu: 250m
+              cpu: 200m
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -135,7 +135,7 @@ spec:
             - containerPort: 8202
           resources:
             limits:
-              cpu: 250m
+              cpu: 200m
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -162,7 +162,7 @@ spec:
             - containerPort: 8302
           resources:
             limits:
-              cpu: 250m
+              cpu: 200m
 
 ---
 # user-tag
@@ -191,7 +191,7 @@ spec:
             - containerPort: 8103
           resources:
             limits:
-              cpu: 250m
+              cpu: 200m
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -218,7 +218,7 @@ spec:
             - containerPort: 8203
           resources:
             limits:
-              cpu: 250m
+              cpu: 200m
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -245,7 +245,7 @@ spec:
             - containerPort: 8303
           resources:
             limits:
-              cpu: 250m
+              cpu: 200m
 
 ---
 # media
@@ -274,7 +274,7 @@ spec:
             - containerPort: 8104
           resources:
             limits:
-              cpu: 250m
+              cpu: 200m
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -301,7 +301,7 @@ spec:
             - containerPort: 8204
           resources:
             limits:
-              cpu: 250m
+              cpu: 200m
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -328,7 +328,7 @@ spec:
             - containerPort: 8304
           resources:
             limits:
-              cpu: 250m
+              cpu: 200m
 
 ---
 # text
@@ -357,7 +357,7 @@ spec:
             - containerPort: 8105
           resources:
             limits:
-              cpu: 250m
+              cpu: 200m
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -384,7 +384,7 @@ spec:
             - containerPort: 8205
           resources:
             limits:
-              cpu: 250m
+              cpu: 200m
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -411,7 +411,7 @@ spec:
             - containerPort: 8305
           resources:
             limits:
-              cpu: 250m
+              cpu: 200m
 
 ---
 # compose-post
@@ -440,7 +440,7 @@ spec:
             - containerPort: 8106
           resources:
             limits:
-              cpu: 250m
+              cpu: 200m
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -467,7 +467,7 @@ spec:
             - containerPort: 8206
           resources:
             limits:
-              cpu: 250m
+              cpu: 200m
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -494,7 +494,7 @@ spec:
             - containerPort: 8306
           resources:
             limits:
-              cpu: 250m
+              cpu: 200m
 
 ---
 # write-timeline
@@ -523,7 +523,7 @@ spec:
             - containerPort: 8107
           resources:
             limits:
-              cpu: 250m
+              cpu: 200m
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -550,7 +550,7 @@ spec:
             - containerPort: 8207
           resources:
             limits:
-              cpu: 250m
+              cpu: 200m
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -577,7 +577,7 @@ spec:
             - containerPort: 8307
           resources:
             limits:
-              cpu: 250m
+              cpu: 200m
 
 
 
@@ -609,7 +609,7 @@ spec:
             - containerPort: 8011
           resources:
             limits:
-              cpu: 800m
+              cpu: 500m
 ---
 # lb-unique-id
 apiVersion: apps/v1
@@ -637,7 +637,7 @@ spec:
             - containerPort: 8012
           resources:
             limits:
-              cpu: 800m
+              cpu: 500m
 ---
 # lb-user-tag
 apiVersion: apps/v1
@@ -665,7 +665,7 @@ spec:
             - containerPort: 8013
           resources:
             limits:
-              cpu: 800m
+              cpu: 500m
 ---
 # lb-media
 apiVersion: apps/v1
@@ -693,7 +693,7 @@ spec:
             - containerPort: 8014
           resources:
             limits:
-              cpu: 800m
+              cpu: 500m
 ---
 # lb-text
 apiVersion: apps/v1
@@ -721,7 +721,7 @@ spec:
             - containerPort: 8015
           resources:
             limits:
-              cpu: 800m
+              cpu: 500m
 ---
 # lb-compose-post
 apiVersion: apps/v1
@@ -749,7 +749,7 @@ spec:
             - containerPort: 8056
           resources:
             limits:
-              cpu: 800m
+              cpu: 500m
 ---
 # lb-write-timeline
 apiVersion: apps/v1
@@ -777,4 +777,4 @@ spec:
             - containerPort: 8067
           resources:
             limits:
-              cpu: 800m
+              cpu: 500m

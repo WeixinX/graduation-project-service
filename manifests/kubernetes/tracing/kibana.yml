@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kibana
+  namespace: elastic
+  labels:
+    app: kibana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kibana
+  template:
+    metadata:
+      labels:
+        app: kibana
+    spec:
+      containers:
+        - name: kibana
+          image: docker.elastic.co/kibana/kibana:7.8.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5601
+          env:
+            - name: ELASTICSEARCH_HOSTS
+              value: http://es.elastic:9200
+          # volumeMounts:
+          #   - mountPath: "/usr/share/kibana/config/kibana.yml"
+          #     name: "kibana-conf-volume"
+      # volumes:
+      #   - name: "kibana-conf-volume"
+      #     等知道怎么在启动 minikube 时把本机目录挂载到 minikube 再说
+      #     hostPath:
+      #       path: "/home/ubuntu/goworkspace/src/WeixinX/graduation-project/config/elastic/kibana.yml"
+      #       type: File
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kibana
+  namespace: elastic
+spec:
+  selector:
+    app: kibana
+  type: NodePort
+  ports:
+    - name: kibana-5601
+      port: 5601
+      targetPort: 5601
+      protocol: TCP

@@ -2,15 +2,21 @@
 
 部署服务环境，其中包括 minikube、tracing、storage、monitoring、demo-service 和 lb-service
 
+## Pre-work
+
+需要先安装:
+- [docker](https://docs.docker.com/engine/install/ubuntu/#install-using-the-convenience-script)
+- [minikube](https://minikube.sigs.k8s.io/docs/start)
+- [kubectl](https://kubernetes.io/zh/docs/tasks/tools/install-kubectl-linux/)
+
 ## Minikube
 
 暴露 k8s dashboard
 
 ```shell
-// sh 命令在 在 [WeixinX/graduation-project](https://github.com/WeixinX/graduation-project) 的 scripts/minikube 中
-$ cd /home/ubuntu/goworkspace/src/WeixinX/graduation-project
+$ cd /home/ubuntu/goworkspace/src/WeixinX/graduation-project-service
 
-$ sh ./scripts/minikube/expose_dashboard.sh
+$ chmod +777 ./scripts/minikube/* && ./scripts/minikube/expose_dashboard.sh
 ```
 
 调整 minikube kubelet 的 `--housekeeping_interval` (kubelet 采集 cAdvisor 数据的周期)
@@ -42,27 +48,25 @@ minikube --housekeeping-interval=5m --kubeconfig=/etc/kubernetes/kubelet.conf --
 $ sudo vi /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 
 // 4. 重启 kubelet
+$ sudo systemctl daemon-reload
 $ sudo systemctl restart kubelet
 ```
 
 ## Tracing & Storage
 
-启动 Jaeger, Elasticsearch 和 Kibana
+启动 Jaeger、Elasticsearch 和 Kibana
 
 ```shell
-// 文件在 [WeixinX/graduation-project](https://github.com/WeixinX/graduation-project) 的 manifest/tracing 中
-$ cd /home/ubuntu/goworkspace/src/WeixinX/graduation-project
-
 // tracing
 $ kubectl create namespace tracing
-$ kubectl apply -f ./manifest/tracing/jaeger-all.yml
-$ sh ./scripts/minikube/expose_jaeger.sh
+$ kubectl apply -f ./manifests/kubernetes/tracing/jaeger-all.yml
+$ ./scripts/minikube/expose_jaeger.sh
 
 // elastic for storing trace data
 $ kubectl create namespace elastic
-$ kubectl apply -f ./manifest/tracing/es.yml
-$ kubectl apply -f ./manifest/tracing/kibana.yml
-$ sh ./scripts/minikube/expose_elastic.sh
+$ kubectl apply -f ./manifests/kubernetes/tracing/es.yml
+$ kubectl apply -f ./manifests/kubernetes/tracing/kibana.yml
+$ ./scripts/minikube/expose_elastic.sh
 ```
 
 ## Monitoring
@@ -70,18 +74,19 @@ $ sh ./scripts/minikube/expose_elastic.sh
 启动 Prometheus 和 Grafana
 
 ```shell
-// 文件在 [WeixinX/graduation-project](https://github.com/WeixinX/graduation-project) 的 manifest/monitoring 中
-$ cd /home/ubuntu/goworkspace/src/WeixinX/graduation-project
-
 $ kubectl create namespace monitoring
+
 // Prometheus
-$ kubectl apply -f ./manifest/monitoring/prometheus-config.yaml
-$ kubectl apply -f ./manifest/monitoring/prometheus-deployment.yaml
-$ kubectl apply -f ./manifest/monitoring/prometheus-service.yaml
+$ kubectl apply -f ./manifests/kubernetes/monitoring/prometheus-config.yaml
+$ kubectl apply -f ./manifests/kubernetes/monitoring/prometheus-deployment.yaml
+$ kubectl apply -f ./manifests/kubernetes/monitoring/prometheus-service.yaml
 
 // Grafana
-$ kubectl apply -f ./manifest/monitoring/grafana-deployment.yaml
-$ kubectl apply -f ./manifest/monitoring/grafana-service.yaml
+$ kubectl apply -f ./manifests/kubernetes/monitoring/grafana-deployment.yaml
+$ kubectl apply -f ./manifests/kubernetes/monitoring/grafana-service.yaml
+
+// expose
+$ ./scripts/minikube/expose_monitoring.sh
 ```
 
 ## Service
@@ -91,27 +96,26 @@ $ kubectl apply -f ./manifest/monitoring/grafana-service.yaml
 ### 构建服务二进制文件
 
 ```shell
-$ cd /home/ubuntu/goworkspace/src/WeixinX/graduation-project-service
-
-$ sh ./scripts/build_all_services.sh
+$ cd ./scripts && chmod +777 ./*
+$ ./build_all_services.sh
 ```
 
 ### 构建服务镜像
 
 ```shell
-$ sh ./scripts/build_all_images.sh minikube
+$ ./build_all_images.sh minikube
 ```
 
 ### 部署服务到 minikube 环境
 
 ```shell
 $ kubectl create namespace service
-$ kubectl apply -f ./manifests/kubernetes/demo-and-lb-deployment.yml
-$ kubectl apply -f ./manifests/kubernetes/demo-and-lb-service.yml
+$ kubectl apply -f ./manifests/kubernetes/service/demo-and-lb-deployment.yml
+$ kubectl apply -f ./manifests/kubernetes/service/demo-and-lb-service.yml
 ```
 
 ### 暴露服务
 
 ```shell
-$ sh ./scripts/expose_all_service.sh
+$ sh ./expose_all_service.sh
 ```
