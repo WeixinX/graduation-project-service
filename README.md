@@ -117,5 +117,5 @@ $ kubectl apply -f ./manifests/kubernetes/service/demo-and-lb-service.yml
 ### 暴露服务
 
 ```shell
-$ sh ./expose_all_service.sh
+$ ./expose_all_service.sh
 ```
